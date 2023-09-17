@@ -1,0 +1,61 @@
+
+.header{
+ background-color: #1C1C21;
+  width:100%;
+  position: relative;
+  height: 88px;
+  margin:auto;
+  display: flex;
+  justify-content: center;
+}
+
+.nav{
+  width:100%;
+  max-width: 1980px;
+
+}
+
+.spisok{
+  width:100%;
+  max-width:1280px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin:30px auto 0 ;
+  margin-left: max(auto, 15%);
+  
+}
+
+.constructor{
+  display: flex;
+  align-items: center;
+
+}
+
+.text{
+  padding:0;
+  margin:0;
+}
+.ll{
+  display: flex;
+
+}
+.li{
+  list-style-type: none;
+  display: flex;
+    align-items: center;
+
+}
+.link{
+  text-decoration:none;
+  display: flex;
+  align-items: center;
+}
+
+.wrap{
+  display: flex;
+}
+.wr{
+  position:absolute;
+  top:16px;
+}

@@ -1,0 +1,21 @@
+
+.burgerConstructor{
+    width: 100%;
+    max-width:640px;
+    margin-top: 100px;
+}
+.wrap{
+    height: calc(100vh - 280px);
+    overflow-y: auto;  
+}
+
+.footer{
+    display: flex;
+    justify-content:flex-end ;
+}
+.price{
+    display:flex;
+    align-items: center;
+
+
+}
