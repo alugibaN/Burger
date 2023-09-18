@@ -11,7 +11,7 @@ function App() {
     <div>
       <AppHeader />
       <main className={`${sty.main}`}>
-        <BurgerIngredients data={data} />
+        <BurgerIngredients url ={'https://norma.nomoreparties.space/api/ingredients'}/>
         <BurgerConstructor />
       </main>
     </div>
