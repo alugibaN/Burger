@@ -1,6 +1,6 @@
 import sty from './BurgerIngredients.module.css'
 import React, {useState} from 'react';
-import MenuItem from '../utils/MenuItem';
+import MenuItem from '../../utils/MenuItem';
 
 
 function BurgerIngredients (props){

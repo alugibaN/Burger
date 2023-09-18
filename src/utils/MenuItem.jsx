@@ -2,7 +2,6 @@ import React from "react";
 import Burger from "./CartBurger";
 
 function MenuItem (props) {
-    console.log(props.el)
     return(
         <ul className={`${props.class} pl-4 pr-4`}>
         {props.data.map(item =>{

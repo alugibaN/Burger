@@ -17,7 +17,7 @@ return(
             <li className={sty.li}>
               <a href="/" className={sty.link}>
                 <BurgerIcon type="primary" />
-              <h3 style={{color: '#F2F2F3'}} className='ml-2 mr-5 text text_type_main-default'>Конструктор</h3>
+              <h3 className={ `${sty.subtitle} ml-2 mr-5 text text_type_main-default`}>Конструктор</h3>
               </a>
             </li>
             <li className={sty.li}>
