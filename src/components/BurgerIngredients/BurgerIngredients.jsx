@@ -1,6 +1,9 @@
 import sty from './BurgerIngredients.module.css'
 import React, {useState} from 'react';
 import MenuItem from '../../utils/MenuItem';
+import ingredientPropType from '../../utils/prop-types';
+import PropTypes from "prop-types";
+
 
 
 function BurgerIngredients (props){
@@ -46,7 +49,9 @@ function BurgerIngredients (props){
    )
 
     }
-
+	BurgerIngredients.propTypes = {
+		items: PropTypes.arrayOf(ingredientPropType).isRequired
+	}
   
 
 export default BurgerIngredients
