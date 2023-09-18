@@ -45,14 +45,17 @@
 }
 
 .name{
-    width:100%;
-    max-width: 272px;
-    padding: 0 10px;
+    
+   
+    padding: 0 20px;
     display: flex;
     justify-content: center;
+    word-break:inherit;
 }
 
 .wrap{
     display: flex;
     align-items:center;
 }
+
+

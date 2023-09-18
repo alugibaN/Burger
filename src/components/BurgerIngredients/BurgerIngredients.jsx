@@ -1,6 +1,6 @@
 import sty from './BurgerIngredients.module.css'
 import React, {useState} from 'react';
-import MenuItem from '../../utils/MenuItem';
+import MenuItem from '../MenuItem/MenuItem';
 import ingredientPropType from '../../utils/prop-types';
 import PropTypes from "prop-types";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Burger from "./CartBurger";
+import Burger from "../CartBurger/CartBurger";
 
 function MenuItem (props) {
     return(
