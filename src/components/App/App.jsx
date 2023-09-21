@@ -33,7 +33,7 @@ function App() {
     setIngredient(null);
   }
 
-  const Open = useCallback(() => {
+  const open = useCallback(() => {
     setOpenOrderModal(true)
   }, [])
 
@@ -52,6 +52,9 @@ function App() {
       try {
         setState({ ...state, hasError: false, loading: true });
         const res = await fetch(url)
+        if (!res.ok) {
+          throw new Error('Network response was not ok'); // Will be caught by catch block
+      }
         const data = await res.json()
         setState({ data: data.data, hasError: false, loading: false })
       } catch (err) {
@@ -63,10 +66,6 @@ function App() {
     getProductData();
   }, [])
 
-
-
-
-
   return (
     <div>
       <AppHeader />
@@ -75,14 +74,13 @@ function App() {
                            openModal={openIngredient}
                            add={pp}
         />
-        <BurgerConstructor data={state.data} openModal={Open} />
+        <BurgerConstructor data={state.data} openModal={open} />
       </main>
       {openOrderModal
         ?
-        <Modal openIngredientsModal={openOrderModal}
-               closeModal={closeModal}
+        <Modal  closeModal={closeModal}
         >
-          <OrderDetails />
+          <OrderDetails/>
         </Modal>
         :
         null}

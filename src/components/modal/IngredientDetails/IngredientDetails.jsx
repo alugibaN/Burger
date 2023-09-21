@@ -9,7 +9,7 @@ function IngredientsDetails(props) {
 
 
   return (
-    <div className={`${sty.container} pl-10 pt-10 pr-10`}>
+    <>
       <h2 className={`ml-10 mr-10 mt-10 mb-4 text text_type_main-large ${sty.popup__title}`}>Детали Ингридиента</h2>
       <img className={`${sty.popup__img}`} src={props.data.image} alt={props.data.name} />
       <p className={`${sty.popup__name} text text_type_main-medium`}>
@@ -33,7 +33,7 @@ function IngredientsDetails(props) {
           <p className='mt-2 text text_type_main-default'>{props.data.carbohydrates}</p>
         </div>
       </div>
-    </div>
+    </>
 
   )
 }

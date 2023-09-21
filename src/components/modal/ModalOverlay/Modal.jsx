@@ -24,9 +24,12 @@ const Modal = forwardRef(({ children, closeModal }, ref) => {
   return ReactDOM.createPortal(
 <div ref={ref}>
     <ModalOverlay closeModal={closeModal}>
-      <button type="button" className={sty.popup__close} onClick={closeModal}><CloseIcon
+    
+    <div className={`${sty.container}`} onClick={e => e.stopPropagation()} >
+    <button type="button" className={sty.popup__close} onClick={closeModal}><CloseIcon
         type="primary" /></button>
       {children}
+      </div>
     </ModalOverlay>
     </div>, domModal
   );

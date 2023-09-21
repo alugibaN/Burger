@@ -8,7 +8,7 @@ const modalDomElement = document.querySelector("#modal")
 function OrderDetails() {
   return (
   
-    <div className={`${sty.container} pl-10 pt-10 pr-10`}>
+    <>
       <h2 className={`${sty.popup__title} text text_type_digits-medium`}>034536</h2>
       <p className={`text text_type_main-medium mb-15`}>Индификатор заказа</p>
       <svg width="107" height="102" viewBox="0 0 107 102" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,7 @@ function OrderDetails() {
       <span className={`${sty.popup__span} text text_type_main-default text_color_inactive mb-30`}>
         Дождитесь готовности на орбитальной станции
       </span>
-      </div>
+      </>
   )
 }
 export default OrderDetails
