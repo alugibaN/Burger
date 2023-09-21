@@ -13,8 +13,8 @@ function ModalOverlay ({children, closeModal}){
   )
 }
 ModalOverlay.propTypes = {
-  close: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-
+  closeModal: PropTypes.func.isRequired,
+  // children: PropTypes.element.isRequired,
+ children: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 export default ModalOverlay

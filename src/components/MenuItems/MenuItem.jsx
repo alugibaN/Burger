@@ -32,8 +32,7 @@ function MenuItem(props) {
 }
 
 MenuItem.propTypes = {
-  data: PropTypes.arrayOf().isRequired,
-  openModal: PropTypes.func.isRequired
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default MenuItem

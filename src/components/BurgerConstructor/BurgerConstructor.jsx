@@ -62,7 +62,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf().isRequired,
-  openModal: PropTypes.func.isRequired
+  data: PropTypes.arrayOf(PropTypes.object).isRequired, 
+   openModal: PropTypes.func.isRequired
 }
 export default BurgerConstructor

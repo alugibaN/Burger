@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const domModal = document.getElementById("modal");
 
-const modal = forwardRef(({ children, closeModal }, ref) => {
+const Modal = forwardRef(({ children, closeModal }, ref) => {
 
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -36,4 +36,4 @@ Modal.propTypes = {
   children: PropTypes.element.isRequired,
   closeModal: PropTypes.func.isRequired
 };
-export default modal;
+export default Modal;

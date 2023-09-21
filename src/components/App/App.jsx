@@ -11,7 +11,6 @@ import Modal from '../modal/ModalOverlay/Modal'
 
 
 
-
 function App() {
   const [ingredient, setIngredient] = useState(null)
   const [ingredients, setIngredients] = useState([]);
