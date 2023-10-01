@@ -1,0 +1,45 @@
+
+
+.popup__img{
+  width:100%;
+  width:480px;
+}
+
+.popup__title{
+  width:100%;
+  max-width: 540px;
+}
+
+.popup__wrap{
+  display: flex;
+  
+}
+
+.popup__name{
+  margin-top:0;
+  padding: 0 10px;
+}
+
+.popup__colories{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:0;
+  width:140px;
+}
+
+.poup__kal{
+  margin:0 auto;
+}
+
+.container{
+  margin: auto; 
+	position: relative;
+  width:100%;
+  max-width: 720px;
+  background-color:#1C1C21;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items:center
+}

@@ -1,0 +1,9 @@
+
+.popup__title{
+  margin:120px 0 30px;
+  text-shadow: 0px 0px 10px #4C4CFF;}
+
+.popup__close:hover{
+opacity: 0.6;
+}
+
