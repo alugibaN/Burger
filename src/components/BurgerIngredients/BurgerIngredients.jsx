@@ -1,9 +1,8 @@
 import sty from './BurgerIngredients.module.css'
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import MenuItem from '../MenuItems/MenuItem'
 import ingredientPropType from '../../utils/prop-types';
 import PropTypes from "prop-types";
-
 
 
 function BurgerIngredients(props) {
@@ -13,7 +12,6 @@ function BurgerIngredients(props) {
 		bun: 'bun',
 		sauce: 'sauce',
 	})
-
 
 
 	return (
@@ -36,22 +34,22 @@ function BurgerIngredients(props) {
 				<h3 className={` text text_type_main-medium mb-3`}>
 					Булки
 				</h3>
-				<MenuItem data={props.data} el={type.bun} open={props.openModal} on={props.add} />
+				<MenuItem el={type.bun} open={props.openModal} on={props.add} />
 				<h3 className={` text text_type_main-medium mb-3`}>
 					Соусы
 				</h3>
-				<MenuItem data={props.data} el={type.sauce} open={props.openModal} on={props.add} />
+				<MenuItem el={type.sauce} open={props.openModal} on={props.add} />
 				<h3 className={` text text_type_main-medium mb-3`}>
 					Начинка
 				</h3>
-				<MenuItem data={props.data} el={type.main} open={props.openModal} on={props.add} />
+				<MenuItem el={type.main} open={props.openModal} on={props.add} />
 			</div>
 		</section>
 	)
 
 }
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // data: PropTypes.arrayOf(PropTypes.object).isRequired,
 	openModal: PropTypes.func.isRequired
 
 }
