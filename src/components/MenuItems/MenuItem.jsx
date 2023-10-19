@@ -8,7 +8,7 @@ import { ingredientsContext } from "../../services/ingredientsContext";
 
 function MenuItem(props) {
   const data = useContext(realContext)
-  const {addIngredient, addBulka} = useContext(ingredientsContext)
+  const {addIngredient, addBulka, bulka } = useContext(ingredientsContext)
   return (
     <ul className={`${sty.menu} pl-4 pr-4`}>
 
@@ -16,14 +16,13 @@ function MenuItem(props) {
         if (item.type === props.el) {
           return (
             <li key={item._id} className={`${sty.card}  pl-4 pr-4 `}
-              onClick={() => {
+              onClick={() => {                
                 if(item.type === 'bun'){
                   addBulka(item)
-                }else{
+                }else if(bulka.length === 1){
                 addIngredient(item)
                 }
               }}>
-
               <img className={`mb-1`} alt={item.name} src={item.image} />
               <div className={`${sty.wrap} mb-1`}>
                 <p className={`${sty.itle} text text_type_digits-default mr-1`}>{item.price}</p>

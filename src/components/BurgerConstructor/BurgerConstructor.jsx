@@ -10,11 +10,13 @@ import { ingredientsContext } from "../../services/ingredientsContext";
 
 function BurgerConstructor(props) {
 // const data = useContext(realContext)
-const {ingredient, bulka, removeIngredient} = useContext(ingredientsContext)
-
-
+const {ingredient, bulka, state, setFlag, flag} = useContext(ingredientsContext)
+const handleSubmit = () => {
+  if (!flag) {
+    setFlag(true);
+  }
+};
   return (
-    
     <section className={`${sty.burgerConstructor} mt-15 ml-5 `}>
       <div  className={sty.topBulka}>
       
@@ -31,12 +33,10 @@ const {ingredient, bulka, removeIngredient} = useContext(ingredientsContext)
         ) })}
 
       </div>
-
       <ul className={`${sty.wrap} custom-scroll`}>
         {ingredient.map((item) => {
           if (item.type !== 'bun')
             return <li key={item._id}>
-
               <button type="button"
                 className={sty.ingredients__info}
                 onClick={(e)=>{
@@ -68,14 +68,13 @@ const {ingredient, bulka, removeIngredient} = useContext(ingredientsContext)
       </div>
       <div className={`${sty.footer} pt-5`} >
         <div className={`${sty.price} mr-10`}>
-          <p className={`${sty.counter} text text_type_main-large mr-2`}>0</p>
+          <p className={`${sty.counter} text text_type_main-large mr-2`}>{state.totalSum}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={props.openModal}>
+        <Button htmlType="button" type="primary" size="large" onClick={()=>{props.openModal(); handleSubmit() }}>
           Оформить заказ
         </Button>
       </div>
-
     </section>
 
   )

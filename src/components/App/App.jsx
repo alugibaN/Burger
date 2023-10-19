@@ -28,7 +28,7 @@ function App() {
 
   const pp = useCallback((item) => {
     setIngredient(item)
-    //  console.log(ingredient)
+
   })
 
   const closeModalIngredient = () => {
@@ -70,21 +70,21 @@ function App() {
   }, [])
 
   return (
-    <realContext.Provider value={state.data}>
+    
       <GetCardIngredient>
         <div>
           <AppHeader />
           <main className={`${sty.main}`}>
-            <BurgerIngredients openModal={openIngredient}
-              add={pp}
+          <realContext.Provider value={state.data}>
+            <BurgerIngredients openModal={openIngredient} add={pp}
             />
+            </realContext.Provider>
             <BurgerConstructor openModal={open} />
           </main>
           {openOrderModal
             ?
-            <Modal closeModal={closeModal}
-            >
-              <OrderDetails />
+            <Modal closeModal={closeModal} >
+            <OrderDetails />
             </Modal>
             :
             null}
@@ -99,7 +99,7 @@ function App() {
           }
         </div>
       </GetCardIngredient>
-    </realContext.Provider>
+    
   )
 }
 
