@@ -1,18 +1,20 @@
-import React, { useEffect, forwardRef } from "react";
+import React, { useEffect, forwardRef, useContext } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "./ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sty from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
+import { ingredientsContext } from "../../../services/ingredientsContext";
 
 const domModal = document.getElementById("modal");
 
 const Modal = forwardRef(({ children, closeModal }, ref) => {
-
+  const {flag} = useContext(ingredientsContext)
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
         closeModal();
+        
       }
     }
     document.addEventListener('keydown', handleEscClose);

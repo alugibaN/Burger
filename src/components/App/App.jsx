@@ -7,6 +7,8 @@ import OrderDetails from '../modal/OrderDetails/OrderDetails'
 import ModalOverlay from '../modal/ModalOverlay/ModalOverlay'
 import IngredientsDetails from '../modal/IngredientDetails/IngredientDetails'
 import Modal from '../modal/ModalOverlay/Modal'
+import { realContext } from '../../services/constructorContext'
+import { GetCardIngredient } from '../../services/ingredientsContext'
 
 
 
@@ -22,10 +24,11 @@ function App() {
     data: [],
   })
 
+  const [bulk, setBulk] = useState()
 
   const pp = useCallback((item) => {
     setIngredient(item)
-    //  console.log(ingredient)
+
   })
 
   const closeModalIngredient = () => {
@@ -54,7 +57,7 @@ function App() {
         const res = await fetch(url)
         if (!res.ok) {
           throw new Error('Network response was not ok'); // Will be caught by catch block
-      }
+        }
         const data = await res.json()
         setState({ data: data.data, hasError: false, loading: false })
       } catch (err) {
@@ -67,33 +70,36 @@ function App() {
   }, [])
 
   return (
-    <div>
-      <AppHeader />
-      <main className={`${sty.main}`}>
-        <BurgerIngredients data={state.data}
-                           openModal={openIngredient}
-                           add={pp}
-        />
-        <BurgerConstructor data={state.data} openModal={open} />
-      </main>
-      {openOrderModal
-        ?
-        <Modal  closeModal={closeModal}
-        >
-          <OrderDetails/>
-        </Modal>
-        :
-        null}
-      {openIngredientsModal
-        ?
-        <Modal closeModal={closeModalIngredient}>
-          <IngredientsDetails data={ingredient}
-          />
-        </Modal>
-        :
-        null
-      }
-    </div>
+    
+      <GetCardIngredient>
+        <div>
+          <AppHeader />
+          <main className={`${sty.main}`}>
+          <realContext.Provider value={state.data}>
+            <BurgerIngredients openModal={openIngredient} add={pp}
+            />
+            </realContext.Provider>
+            <BurgerConstructor openModal={open} />
+          </main>
+          {openOrderModal
+            ?
+            <Modal closeModal={closeModal} >
+            <OrderDetails />
+            </Modal>
+            :
+            null}
+          {openIngredientsModal
+            ?
+            <Modal closeModal={closeModalIngredient}>
+              <IngredientsDetails data={ingredient}
+              />
+            </Modal>
+            :
+            null
+          }
+        </div>
+      </GetCardIngredient>
+    
   )
 }
 
