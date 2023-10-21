@@ -112,6 +112,9 @@ const addIngredient = useCallback((el) => {
 
 
 
+
+
+
 // const existingCardIndex = ingredient.findIndex(() => 'bun' === el.type);
 //   console.log(existingCardIndex)
 //   if (existingCardIndex !== -1) {

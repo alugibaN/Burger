@@ -6,6 +6,7 @@ import IngredientsDetails from "../modal/IngredientDetails/IngredientDetails";
 import PropTypes from "prop-types";
 import { realContext } from "../../services/constructorContext";
 import { ingredientsContext } from "../../services/ingredientsContext";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function BurgerConstructor(props) {
@@ -16,6 +17,15 @@ const handleSubmit = () => {
     setFlag(true);
   }
 };
+
+// const dispatch =useDispatch()
+// const pp = useSelector(state=>state.showModal) 
+// console.log(pp)
+// const hhh =()=>{
+//   const action = {type:'OPEN_ORDER'}
+//   dispatch(action)
+// }
+
   return (
     <section className={`${sty.burgerConstructor} mt-15 ml-5 `}>
       <div  className={sty.topBulka}>
@@ -71,7 +81,7 @@ const handleSubmit = () => {
           <p className={`${sty.counter} text text_type_main-large mr-2`}>{state.totalSum}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={()=>{props.openModal(); handleSubmit() }}>
+        <Button htmlType="button" type="primary" size="large" onClick={()=>{props.openModal(); handleSubmit()}}>
           Оформить заказ
         </Button>
       </div>

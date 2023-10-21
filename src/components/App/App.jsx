@@ -9,6 +9,9 @@ import IngredientsDetails from '../modal/IngredientDetails/IngredientDetails'
 import Modal from '../modal/ModalOverlay/Modal'
 import { realContext } from '../../services/constructorContext'
 import { GetCardIngredient } from '../../services/ingredientsContext'
+import { rootReducer } from '../../services/reducer/reducer'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux';
 
 
 
@@ -23,8 +26,6 @@ function App() {
     loading: true,
     data: [],
   })
-
-  const [bulk, setBulk] = useState()
 
   const pp = useCallback((item) => {
     setIngredient(item)
@@ -48,6 +49,9 @@ function App() {
     setIngredientModal(true)
   }, [])
 
+
+  const store = createStore(rootReducer)
+
   const url = 'https://norma.nomoreparties.space/api/ingredients'
 
   useEffect(() => {
@@ -70,7 +74,7 @@ function App() {
   }, [])
 
   return (
-    
+    <Provider store={store}>
       <GetCardIngredient>
         <div>
           <AppHeader />
@@ -83,24 +87,51 @@ function App() {
           </main>
           {openOrderModal
             ?
-            <Modal closeModal={closeModal} >
+            <Modal>
+
+             {/* <Modal closeModal={closeModal} > */}
             <OrderDetails />
             </Modal>
             :
             null}
-          {openIngredientsModal
+          {/* {openIngredientsModal
             ?
-            <Modal closeModal={closeModalIngredient}>
-              <IngredientsDetails data={ingredient}
+            <Modal>
+
+              <IngrceedientsDetails data={ingredient}
               />
             </Modal>
             :
             null
-          }
+          } */}
         </div>
       </GetCardIngredient>
-    
+      </Provider>
   )
 }
 
 export default App
+
+
+
+// у меня есть функции открытия и закрытия модальных окон 
+//получение карточек с API
+//отправка и получение PET запросов  и зменение флагов 
+//
+//
+//
+//
+//
+//
+///
+///
+//
+///
+//
+//
+//
+//
+//
+//
+//
+//

@@ -3,10 +3,12 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay'
 import sty from './IngredientDetails.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
 function IngredientsDetails(props) {
 
-
+  const counter = useSelector(state => state.showModal)
+  console.log(counter)
 
   return (
     <>
