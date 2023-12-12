@@ -1,0 +1,7 @@
+export const ADD_INGREDIENT = 'ADD_INGREDIENT'
+export const ADD_BUN = 'ADD_BUN'
+export const SUM_PRICES = 'SUM_PRICES'
+export const BURGER_ID = 'BURGER_ID'
+export const MOVE_INGREDIENT = 'MOVE_INGREDIENT'
+export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT'
+export const POST_BURGER = 'POST_BURGER'

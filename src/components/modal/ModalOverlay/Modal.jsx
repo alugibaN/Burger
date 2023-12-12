@@ -1,20 +1,32 @@
-import React, { useEffect, forwardRef, useContext } from "react";
+import React, { useEffect, forwardRef } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "./ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sty from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
-import { ingredientsContext } from "../../../services/ingredientsContext";
+import { useDispatch, useSelector } from "react-redux";
 
 const domModal = document.getElementById("modal");
 
-const Modal = forwardRef(({ children, closeModal }, ref) => {
-  const {flag} = useContext(ingredientsContext)
+const Modal = forwardRef(({ children}, ref) => {
+const {openModalIngredient, openModalOrder}=useSelector(state => state.modal)
+const dispatch = useDispatch()
+
+const closeModal = ()=>{
+if(openModalIngredient === true){
+  dispatch({
+    type: 'CLOUSE_MODAL_INGREDIENT'
+  })
+}else if(openModalOrder === true){
+  dispatch({
+    type: 'CLOUSE_MODAL_ORDER'
+  })
+}
+}
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
-        closeModal();
-        
+        closeModal()
       }
     }
     document.addEventListener('keydown', handleEscClose);
@@ -39,6 +51,5 @@ const Modal = forwardRef(({ children, closeModal }, ref) => {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  closeModal: PropTypes.func.isRequired
 };
 export default Modal;
