@@ -1,94 +1,129 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import sty from './MenuItem.module.css'
+import React, { useEffect } from "react";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import sty from "./MenuItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
+import {
+  BURGER_ID,
+  SUM_PRICES,
+} from "../../services/AddIngredient/action";
+import { OPEN_MODAL_INGREDIENT } from "../../services/Modal/action";
 
+function MenuItem({ type, item }) {
+  const { burgerIngredients, bun, ingredients } = useSelector(
+    (state) => state.ingr
+  );
+  const dispatch = useDispatch();
+  const [, dragRef] = useDrag({
+    type: type,
+    item: item,
+  });
 
-
-function MenuItem({type, item}) {
-  const {burgerIngredients, bun} = useSelector(state => state.ingr)
- 
-  const [{isDragging}, dragRef] = useDrag({
-    type:type,
-    item: item
-  })
-
-  const dispatch = useDispatch()
-
-  const openModal = (ingr)=>{
+  const openModal = (ingr) => {
     dispatch({
-    type: 'OPEN_MODAL_INGREDIENT',
-    ingredient:ingr
-})}
+      type: OPEN_MODAL_INGREDIENT,
+      ingredient: ingr,
+    });
+  };
 
-     const addIngredient = (ingredient) => {
-      dispatch({
-        type: 'ADD_INGREDIENT',
-        ingredient, 
-      });
+  const addPrice = () => {
+    return {
+      type: SUM_PRICES,
+      arr: [...bun, ...burgerIngredients],
     };
+  };
 
-     const addBun = (bun) => {
-      dispatch( {
-        type: 'ADD_BUN',
-        bun
-      });
+  const addIdIngredients = () => {
+    return {
+      type: BURGER_ID,
+      idIngr: [...bun, ...burgerIngredients],
     };
+  };
 
-    const addPrice=()=>{
-      return{
-       type:'SUM_PRICES',
-        arr:[...bun, ...burgerIngredients] 
-      }
-    }
+  const count = ingredients.filter((el) => el === item._id);
 
-    const addIdIngredients = () => {
-      return{
-        type:'BURGER_ID',
-        idIngr:[...bun, ...burgerIngredients]
-      }
-    }
-
-    useEffect(()=>{
-      dispatch(addPrice())
-      dispatch(addIdIngredients())
-    },[bun,burgerIngredients])
-
-
+  useEffect(() => {
+    dispatch(addPrice());
+    dispatch(addIdIngredients());
+  }, [bun, burgerIngredients]);
 
   return (
-<>
-        {item.type === type?
-      <li key={item._id} className={`${sty.card} pl-4 pr-4`} ref={dragRef} onClick={()=>{
-        if(item.type === 'bun'){
-          addBun(item) 
-        }else if(bun.length > 0){
-          addIngredient(item)
-        }
-        openModal(item)    
-      }}>
-        <img className={`mb-1`} alt={item.name} src={item.image} />
-        <div className={`${sty.wrap} mb-1`}>
-          <p className={`${sty.itle} text text_type_digits-default mr-1`}>{item.price}</p>
-          <CurrencyIcon type="primary" />
-        </div>
-        <p className={`${sty.name} text text_type_main-default`}>{item.name}</p>
-      </li>
-: 
-null
-    }
-</>
-)
-    }
+    <>
+      {item.type === type ? (
+        <li
+          className={`${sty.card} pl-4 pr-4`}
+          ref={dragRef}
+          onClick={() => {
+            openModal(item);
+          }}
+          >
+          {count.length > 0 ? (
+            <Counter
+              count={`${count.length}`}
+              size="default"
+              extraClass={`m-1`}
+            />
+          ) : null}
+          <img className={`mb-1`} alt={item.name} src={item.image} />
+          <div className={`${sty.wrap} mb-1`}>
+            <p className={`${sty.itle} text text_type_digits-default mr-1`}>
+              {item.price}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
+          <p className={`${sty.name} text text_type_main-default`}>
+            {item.name}
+          </p>
+        </li>
+      ) : null}
+    </>
+  );
+}
 
-export default MenuItem
+export default MenuItem;
 
 MenuItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  type:PropTypes.string
-}
+  type: PropTypes.string,
+  
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,25 +148,3 @@ MenuItem.propTypes = {
 // 		 );
 // 	}
 // })}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

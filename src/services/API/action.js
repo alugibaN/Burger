@@ -1,56 +1,43 @@
-export const GET_DATA = 'GET_DATA'
-export const GET_DATA_SUCCESS ='GET_DATA_SUCCESS'
-export const GET_DATA_FAILED = 'FETCH_DATA_FAILURE'
+import { request } from "../../utils/utils";
 
-
-const url = 'https://norma.nomoreparties.space/api/ingredients'
+export const GET_DATA = "GET_DATA";
+export const GET_DATA_SUCCESS = "GET_DATA_SUCCESS";
+export const GET_DATA_FAILED = "FETCH_DATA_FAILURE";
 
 export const getData = () => {
-  return function(dispatch) {
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
+  return function (dispatch) {
+    request(`ingredients`)
+      .then((data) => {
         dispatch({
           type: GET_DATA_SUCCESS,
           data: [...data.data],
-          success:data.success,
-          dat:true
-        })
+          success: data.success,
+          dat: true,
+        });
       })
-      .catch(err => {
-        dispatch({
-          type: GET_DATA_FAILED
-        })
-      })
-  }
-}
-
-
-const postUrl = 'https://norma.nomoreparties.space/api/orders'
+      .catch(console.error);
+  };
+};
 
 const postHead = (el) => {
   return {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ingredients: el })
-  }
-}
+    body: JSON.stringify({ ingredients: el }),
+  };
+};
 
 export const postOrder = (ingr) => {
   return function (dispatch) {
-    fetch(postUrl, postHead(ingr))
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
+    request(`orders`, postHead(ingr))
+      .then((data) => {
         dispatch({
-          type: 'POST_BURGER',
-          order: data
-        })
+          type: "POST_BURGER",
+          order: data,
+        });
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
+      .catch(console.error);
+  };
+};

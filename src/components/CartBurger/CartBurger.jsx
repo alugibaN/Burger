@@ -6,7 +6,6 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
 
 function CartBurger(props) {
-// const {eat, setEat} = React.useState({data})
 
 return(
     <li className={`${sty.card}  pl-4 pr-4 `}>

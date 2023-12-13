@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import { changeModal } from './ModalChange/reducer';
-import { getCard } from './API/reducer';
-import { addActivMenu } from './ActivMenu/reducer';
-import { addIngredients } from './AddIngredient/reducer'
+import { modalReducer } from './Modal/reducer';
+import { ingredientReducer } from './API/reducer';
+import { menuReducer } from './ActivMenu/reducer';
+import { constructorIngredientReducer } from './AddIngredient/reducer'
 
 export const rootReducer = combineReducers({
-  card: getCard,
-  modal: changeModal,
-  ingr: addIngredients,
-  menu: addActivMenu
+  card: ingredientReducer,
+  modal: modalReducer,
+  ingr: constructorIngredientReducer,
+  menu: menuReducer
 })
 
 

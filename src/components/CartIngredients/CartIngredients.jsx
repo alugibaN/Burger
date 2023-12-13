@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import sty from '../BurgerConstructor/curgerConstructor.module.css'
-import { useEffect, useState } from 'react'
+import { , useState } from 'react'
 
 
 function CartIngredients(props) {

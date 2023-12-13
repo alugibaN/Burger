@@ -2,9 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 32px;
-}.name{
-    
-   
+}
+.name{   
   padding: 0 20px;
   display: flex;
   justify-content: center;
@@ -24,6 +23,7 @@
   height:208px;
   /* width:100%;
   width:280px */
+  position: relative;
 
 }
 .constructor{
@@ -51,11 +51,18 @@
   flex-direction: column;  
 }
 
-
-
 .image{
   width:100%;
   max-width: 240px;
+}
+.counter{
+position: absolute;
+background-color: #4C4CFF;
+right: 0;
+top:0;
+border-radius: 20px;
+margin: 0;
+padding: 0 7px
 }
 
 

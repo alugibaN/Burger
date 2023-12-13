@@ -4,25 +4,11 @@ import ModalOverlay from "./ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sty from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 
 const domModal = document.getElementById("modal");
 
-const Modal = forwardRef(({ children}, ref) => {
-const {openModalIngredient, openModalOrder}=useSelector(state => state.modal)
-const dispatch = useDispatch()
+const Modal = forwardRef(({children, closeModal}, ref) => {
 
-const closeModal = ()=>{
-if(openModalIngredient === true){
-  dispatch({
-    type: 'CLOUSE_MODAL_INGREDIENT'
-  })
-}else if(openModalOrder === true){
-  dispatch({
-    type: 'CLOUSE_MODAL_ORDER'
-  })
-}
-}
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
@@ -51,5 +37,6 @@ if(openModalIngredient === true){
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 export default Modal;
