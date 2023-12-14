@@ -14,7 +14,6 @@ import { OPEN_MODAL_ORDER } from "../../services/Modal/action";
 import { addIngredient } from "../../services/AddIngredient/action";
 import {
   ADD_BUN,
-  ADD_INGREDIENT,
   MOVE_INGREDIENT,
 } from "../../services/AddIngredient/action";
 
@@ -83,7 +82,7 @@ function BurgerConstructor() {
             burgerIngredients.map((item, index) => {
               return (
                 <ConstructorItem
-                  key={item}
+                  key={item.uniqueId}
                   id={item._id}
                   item={item}
                   index={index}

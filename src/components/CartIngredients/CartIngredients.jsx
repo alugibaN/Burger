@@ -3,7 +3,7 @@ import sty from '../BurgerConstructor/curgerConstructor.module.css'
 import { , useState } from 'react'
 
 
-function CartIngredients(props) {
+function CartIngredients() {
 
     const [modalActive, setModalActive] = useState(false)
     console.log(modalActive)
