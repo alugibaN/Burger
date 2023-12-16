@@ -1,20 +1,17 @@
-import ModalOverlay from "../ModalOverlay/ModalOverlay"
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useSelector } from 'react-redux'
 import sty from './Order.module.css'
-import { useContext, useEffect } from "react"
-import { ingredientsContext } from "../../../services/ingredientsContext"
 
 
-const modalDomElement = document.querySelector("#modal")
+
+// const modalDomElement = document.querySelector("#modal")
 
 function OrderDetails() {
-  const {details, flag} = useContext(ingredientsContext)
+ const {order} = useSelector(state=>state.ingr)
  
-  
   return (
     <>
       <h2 className={`${sty.popup__title} text text_type_digits-medium`}>
-        {details.name ? details.order.number: 'Загрузка'}
+        {order.name ? order.order.number: 'Загрузка'}
       </h2>
       <p className={`text text_type_main-medium mb-15`}>Индификатор заказа</p>
       <svg width="107" height="102" viewBox="0 0 107 102" fill="none" xmlns="http://www.w3.org/2000/svg">

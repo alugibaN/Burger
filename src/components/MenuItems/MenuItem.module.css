@@ -2,9 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 32px;
-}.name{
-    
-   
+}
+.name{   
   padding: 0 20px;
   display: flex;
   justify-content: center;
@@ -24,5 +23,48 @@
   height:208px;
   /* width:100%;
   width:280px */
+  position: relative;
 
 }
+.constructor{
+  width:100%;
+  max-width:640px;
+  }
+
+.button{
+  width: 100%;
+  max-width: 200px;
+  background-color: #131316;
+  color:white;
+  border: 0;
+  height:100%;
+  height:56px;
+  border-bottom: 1px solid #1C1C21;
+}
+
+.cards {
+  max-width: 600px;
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;  
+}
+
+.image{
+  width:100%;
+  max-width: 240px;
+}
+.counter{
+position: absolute;
+background-color: #4C4CFF;
+right: 0;
+top:0;
+border-radius: 20px;
+margin: 0;
+padding: 0 7px
+}
+
+
+
+

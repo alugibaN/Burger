@@ -30,6 +30,15 @@
     max-width: 240px;
 }
 
+.menu{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 32px;
+}
+.activ{
+    border-bottom:1px solid #4C4CFF; 
+    
+}
 
 
 

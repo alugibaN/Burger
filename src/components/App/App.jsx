@@ -1,106 +1,54 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
-import AppHeader from '../AppHeader/AppHeader'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import sty from './app.module.css'
-import OrderDetails from '../modal/OrderDetails/OrderDetails'
-import ModalOverlay from '../modal/ModalOverlay/ModalOverlay'
-import IngredientsDetails from '../modal/IngredientDetails/IngredientDetails'
-import Modal from '../modal/ModalOverlay/Modal'
-import { realContext } from '../../services/constructorContext'
-import { GetCardIngredient } from '../../services/ingredientsContext'
-
-
-
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import AppHeader from "../AppHeader/AppHeader";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import sty from "./app.module.css";
+import OrderDetails from "../modal/OrderDetails/OrderDetails";
+// import ModalOverlay from '../modal/ModalOverlay/ModalOverlay'
+import IngredientsDetails from "../modal/IngredientDetails/IngredientDetails";
+import Modal from "../modal/ModalOverlay/Modal";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDispatch, useSelector } from "react-redux";
+import { CLOUSE_MODAL_INGREDIENT, CLOUSE_MODAL_ORDER } from "../../services/Modal/action";
 
 function App() {
-  const [ingredient, setIngredient] = useState(null)
-  const [ingredients, setIngredients] = useState([]);
-  const [openIngredientsModal, setIngredientModal] = useState(false)
-  const [openOrderModal, setOpenOrderModal] = useState(false)
-  const [state, setState] = useState({
-    hasError: false,
-    loading: true,
-    data: [],
-  })
+  const { openModalOrder, openModalIngredient } = useSelector((state) => state.modal);
+  const dispatch = useDispatch()
 
-  const [bulk, setBulk] = useState()
-
-  const pp = useCallback((item) => {
-    setIngredient(item)
-
-  })
-
-  const closeModalIngredient = () => {
-    setIngredientModal(false);
-    setIngredient(null);
+  const closeModalIngreient = ()=>{
+   dispatch({
+    type:  CLOUSE_MODAL_INGREDIENT
+    })
   }
 
-  const open = useCallback(() => {
-    setOpenOrderModal(true)
-  }, [])
-
-  const closeModal = () => {
-    setOpenOrderModal(false);
+   const  closeModalOrder = ()=>{
+    dispatch({
+      type: CLOUSE_MODAL_ORDER
+    })
   }
-
-  const openIngredient = useCallback(() => {
-    setIngredientModal(true)
-  }, [])
-
-  const url = 'https://norma.nomoreparties.space/api/ingredients'
-
-  useEffect(() => {
-    const getProductData = async () => {
-      try {
-        setState({ ...state, hasError: false, loading: true });
-        const res = await fetch(url)
-        if (!res.ok) {
-          throw new Error('Network response was not ok'); // Will be caught by catch block
-        }
-        const data = await res.json()
-        setState({ data: data.data, hasError: false, loading: false })
-      } catch (err) {
-        console.log(err)
-
-        setState({ ...state, hasError: true, loading: true })
-      }
-    }
-    getProductData();
-  }, [])
+  
 
   return (
-    
-      <GetCardIngredient>
-        <div>
-          <AppHeader />
-          <main className={`${sty.main}`}>
-          <realContext.Provider value={state.data}>
-            <BurgerIngredients openModal={openIngredient} add={pp}
-            />
-            </realContext.Provider>
-            <BurgerConstructor openModal={open} />
-          </main>
-          {openOrderModal
-            ?
-            <Modal closeModal={closeModal} >
-            <OrderDetails />
-            </Modal>
-            :
-            null}
-          {openIngredientsModal
-            ?
-            <Modal closeModal={closeModalIngredient}>
-              <IngredientsDetails data={ingredient}
-              />
-            </Modal>
-            :
-            null
-          }
-        </div>
-      </GetCardIngredient>
-    
-  )
+    <div>
+      <AppHeader />
+      <main className={`${sty.main}`}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      </main>
+      {openModalOrder ? (
+        <Modal closeModal={closeModalOrder}>
+          <OrderDetails/>
+        </Modal>
+      ) : null}
+      {openModalIngredient ? (
+        <Modal closeModal= {closeModalIngreient} >
+          <IngredientsDetails/>
+        </Modal>
+      ) : null}
+    </div>
+  );
 }
 
-export default App
+export default App;

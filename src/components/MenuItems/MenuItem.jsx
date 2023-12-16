@@ -1,46 +1,150 @@
-import React, { useState, useContext } from "react";
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import sty from './MenuItem.module.css'
+import React, { useEffect } from "react";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import sty from "./MenuItem.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
-import { realContext } from "../../services/constructorContext";
-import { ingredientsContext } from "../../services/ingredientsContext";
+import {
+  BURGER_ID,
+  SUM_PRICES,
+} from "../../services/AddIngredient/action";
+import { OPEN_MODAL_INGREDIENT } from "../../services/Modal/action";
 
+function MenuItem({ type, item }) {
+  const { burgerIngredients, bun, ingredients } = useSelector(
+    (state) => state.ingr
+  );
+  const dispatch = useDispatch();
+  const [, dragRef] = useDrag({
+    type: type,
+    item: item,
+  });
 
-function MenuItem(props) {
-  const data = useContext(realContext)
-  const {addIngredient, addBulka, bulka } = useContext(ingredientsContext)
+  const openModal = (ingr) => {
+    dispatch({
+      type: OPEN_MODAL_INGREDIENT,
+      ingredient: ingr,
+    });
+  };
+
+  const addPrice = () => {
+    return {
+      type: SUM_PRICES,
+      arr: [...bun, ...burgerIngredients],
+    };
+  };
+
+  const addIdIngredients = () => {
+    return {
+      type: BURGER_ID,
+      idIngr: [...bun, ...burgerIngredients],
+    };
+  };
+
+  const count = ingredients.filter((el) => el === item._id);
+
+  useEffect(() => {
+    dispatch(addPrice());
+    dispatch(addIdIngredients());
+  }, [bun, burgerIngredients]);
+
   return (
-    <ul className={`${sty.menu} pl-4 pr-4`}>
-
-      {data.map(item => {
-        if (item.type === props.el) {
-          return (
-            <li key={item._id} className={`${sty.card}  pl-4 pr-4 `}
-              onClick={() => {                
-                if(item.type === 'bun'){
-                  addBulka(item)
-                }else if(bulka.length === 1){
-                addIngredient(item)
-                }
-              }}>
-              <img className={`mb-1`} alt={item.name} src={item.image} />
-              <div className={`${sty.wrap} mb-1`}>
-                <p className={`${sty.itle} text text_type_digits-default mr-1`}>{item.price}</p>
-                <CurrencyIcon type="primary" />
-              </div>
-              <p className={`${sty.name} text text_type_main-default`}>{item.name}</p>
-            </li>
-          )
-        }
-      })}
-    </ul>
-  )
+    <>
+      {item.type === type ? (
+        <li
+          className={`${sty.card} pl-4 pr-4`}
+          ref={dragRef}
+          onClick={() => {
+            openModal(item);
+          }}
+          >
+          {count.length > 0 ? (
+            <Counter
+              count={`${count.length}`}
+              size="default"
+              extraClass={`m-1`}
+            />
+          ) : null}
+          <img className={`mb-1`} alt={item.name} src={item.image} />
+          <div className={`${sty.wrap} mb-1`}>
+            <p className={`${sty.itle} text text_type_digits-default mr-1`}>
+              {item.price}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
+          <p className={`${sty.name} text text_type_main-default`}>
+            {item.name}
+          </p>
+        </li>
+      ) : null}
+    </>
+  );
 }
+
+export default MenuItem;
 
 MenuItem.propTypes = {
-  // data: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+  type: PropTypes.string,
+  
+};
 
-export default MenuItem
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {types.map(type => {
+// 	const itemsOfType = data.filter(item => item.type === type);
+// 	if (itemsOfType.length > 0) {
+// 		 return (
+// 				<>
+// 					 <h3 className={` text text_type_main-medium mb-3`}>
+// 							{type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинка'}
+// 					 </h3>
+// 					 {itemsOfType.map(item => (
+// 			 <ul className={`${sty.menu} pl-4 pr-4`}>
+
+// 						 <MenuItem item={item}/>
+// 						</ul>
+// 					 ))}
+// 				</>
+// 		 );
+// 	}
+// })}
