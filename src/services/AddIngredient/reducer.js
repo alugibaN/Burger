@@ -74,6 +74,7 @@ export const constructorIngredientReducer = (
         order: action.order,
         bun: [],
         burgerIngredients: [],
+        flag:false
       };
 
     default:

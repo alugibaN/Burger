@@ -1,7 +1,12 @@
+.link{
+  text-decoration: none;
+  color:#F2F2F3
+}
 .menu{
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 32px;
+  
 }
 .name{   
   padding: 0 20px;
