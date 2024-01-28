@@ -20,7 +20,6 @@ const { openModalOrder } = useSelector((state) => state.modal);
     }
   })
 
-
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === "Escape") {

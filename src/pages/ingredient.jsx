@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams,  } from "react-router-dom";
 import IngredientsDetails from "../components/modal/IngredientDetails/IngredientDetails";
 import Modal from "../components/modal/ModalOverlay/Modal";
 import HomePages from "./home";
@@ -15,16 +15,15 @@ function ModalIngredient() {
   });
 
 
-  if (location.state === null) {
-    return (
-      <>
-        <AppHeader />
-        <Modal closeModal={closeModal}>
-          <IngredientsDetails />
-        </Modal>
-      </>
-    );
-  }
+  // if (location.state === null) {
+  //   return (
+  //     <>
+  //       <Modal closeModal={closeModal}>
+  //         <IngredientsDetails />
+  //       </Modal>
+  //     </>
+  //   );
+  // }
 
   return (
     <>

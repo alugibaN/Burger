@@ -9,28 +9,31 @@ import Modal from "../components/modal/ModalOverlay/Modal";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
-import { CLOUSE_MODAL_INGREDIENT, CLOUSE_MODAL_ORDER } from "../services/Modal/action";
-import { getCookie } from "../utils/cookie";
+import {
+  CLOUSE_MODAL_INGREDIENT,
+  CLOUSE_MODAL_ORDER,
+} from "../services/modal/action";
 
 function HomePages() {
-  const { openModalOrder, openModalIngredient } = useSelector((state) => state.modal);
-  const dispatch = useDispatch()
+  const { openModalOrder, openModalIngredient } = useSelector(
+    (state) => state.modal
+  );
+  const dispatch = useDispatch();
 
-  const closeModalIngreient = ()=>{
-   dispatch({
-    type:  CLOUSE_MODAL_INGREDIENT
-    })
-  }
-
-   const  closeModalOrder = ()=>{
+  const closeModalIngreient = () => {
     dispatch({
-      type: CLOUSE_MODAL_ORDER
-    })
-  }
-  
+      type: CLOUSE_MODAL_INGREDIENT,
+    });
+  };
+
+  const closeModalOrder = () => {
+    dispatch({
+      type: CLOUSE_MODAL_ORDER,
+    });
+  };
+
   return (
     <div>
-      <AppHeader/>
       <main className={`${sty.main}`}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
@@ -39,12 +42,12 @@ function HomePages() {
       </main>
       {openModalOrder ? (
         <Modal closeModal={closeModalOrder}>
-          <OrderDetails/>
+          <OrderDetails />
         </Modal>
       ) : null}
       {openModalIngredient ? (
-        <Modal closeModal= {closeModalIngreient} >
-          <IngredientsDetails/>
+        <Modal closeModal={closeModalIngreient}>
+          <IngredientsDetails />
         </Modal>
       ) : null}
     </div>
@@ -53,21 +56,3 @@ function HomePages() {
 
 export default HomePages;
 
-
-
-
-
-
-
-
-  // const getTokenExpiration = () => {
-  //   // const token = document.cookie // Здесь получаем значение токена из куки
-  //   //   .split("; ")
-  //   //   .find((row) => row.startsWith("token="))
-  //   //   .split("=")[1];
-  //   const token = getCookie('token')
-
-  //   const tokenExpiration = new Date(parseInt(token.split('.')[1]) * 1000); // Расшифровываем и получаем дату истечения срока действия
-
-  //   console.log('hbj');
-  // };

@@ -13,8 +13,6 @@ import { postLogin } from "../services/API/action";
 import { setCookie, getCookie } from "../utils/cookie.jsx";
 
 function Login() {
-
-  const { user, authToken } = useSelector((state) => state.registration);
   const [form, setValue] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,20 +20,24 @@ function Login() {
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-
   const token = getCookie("token");
 
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    dispatch(postLogin(form));
+    navigate("/", { replace: true });
+
+  });
 
   if (token) {
     return <Navigate to="/profile" replace />;
   }
 
   return (
-    <div>
-      <AppHeader />
+    <>
       <div className={`${sty.popup}`}>
         <div className={`${sty.wrap}`}>
-          <form className={`${sty.form}`}>
+          <form className={`${sty.form}`} onSubmit={handleSubmit}>
             <h2 className={`${sty.title} mt-5 mb-5 text text_type_main-medium`}>
               Вход
             </h2>
@@ -57,14 +59,10 @@ function Login() {
                 extraClass="pt-6"
               />
               <Button
-                htmlType="button"
+                htmlType="submit"
                 type="primary"
                 size="medium"
                 extraClass={`mt-20 ${sty.submit}`}
-                onClick={() => {
-                  dispatch(postLogin(form));
-                  navigate('/login', {replace:true})
-                }}
               >
                 Войти
               </Button>
@@ -86,13 +84,8 @@ function Login() {
           </h3>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default Login;
-
-// const login = useCallback(() => {
-//   navigate("/profile", {replace:true})
-// }, [user]);
-// console.log(document.cookie)

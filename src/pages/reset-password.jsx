@@ -13,28 +13,29 @@ import { useDispatch, useSelector } from "react-redux";
 
 function ResetPassword() {
   const [form, setValue] = useState({ password: "", token: "" });
-  const {user} = useSelector((store) => store.registration)
-  const {} = useSelector((store)=>store.registration)
+  const { user } = useSelector((store) => store.registration);
+  const {} = useSelector((store) => store.registration);
 
-  const dispatch =useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
-    setValue({...form, [e.target.name]: e.target.value });
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  if(user.success){
-    return(
-      <Navigate to={'/login'} replace />
-    )
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    dispatch(postResetPassword(form));
+  });
+
+  if (user.success) {
+    return <Navigate to={"/login"} replace />;
   }
 
   return (
-    <div>
-      <AppHeader />
+    <>
       <div className={`${sty.popup}`}>
         <div className={`${sty.wrap}`}>
-          <form className={`${sty.form}`}>
+          <form className={`${sty.form}`} onSubmit={handleSubmit}>
             <h2 className={`${sty.title} mt-5 mb-5 text text_type_main-medium`}>
               Восстановление пароля
             </h2>
@@ -64,13 +65,10 @@ function ResetPassword() {
                 onChange={onChange}
               />
               <Button
-                htmlType="button"
+                htmlType="submit"
                 type="primary"
                 size="medium"
                 extraClass={`mt-20 ${sty.submit}`}
-                onClick={()=>{
-                 dispatch( postResetPassword(form))
-                }}
               >
                 Сохранить
               </Button>
@@ -86,11 +84,8 @@ function ResetPassword() {
           </h3>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default ResetPassword;
-
-
-

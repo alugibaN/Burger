@@ -7,7 +7,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CLEAN, postRegistration } from "../services/API/action";
 
@@ -18,33 +18,32 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const inputRef = useRef(null);
-
-  function goToNewPage() {
-    navigate("/login", { replace: true });
-  }
-
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const yy = useEffect(() => {
-    console.log(form);
+
+  useEffect(() => {
     if (success) {
+      navigate("/login", { replace: true });
       setValue("");
       dispatch({
         type: CLEAN,
       });
     }
+  }, [success]);
+
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    dispatch(postRegistration(form));
   });
 
   return (
-    <div>
-      <AppHeader />
+    <>
       <div className={`${sty.popup}`}>
         <div className={`${sty.wrap}`}>
-          <form className={`${sty.form}`}>
+          <form className={`${sty.form}`} onSubmit={handleSubmit}>
             <h2 className={`${sty.title} mt-5 mb-5 text text_type_main-medium`}>
-              Вход
+              Зарегестрироваться
             </h2>
             <fieldset
               className={`${sty.fieldset} mt-5 mb-5 text text_type_main-large`}
@@ -54,14 +53,10 @@ function Register() {
                 placeholder={"Имя"}
                 name={"name"}
                 error={false}
-                // ref={inputRef}
-                // onIconClick={onIconClick}
                 errorText={"Ошибка"}
                 size={"default"}
                 onChange={onChange}
-                // extraClass="pt-6"
-                value={success ? "" : form.name}
-                // value=''
+                value={form.name}
               />
               <EmailInput
                 isIcon={false}
@@ -69,30 +64,19 @@ function Register() {
                 name={"email"}
                 extraClass={"mt-6"}
                 onChange={onChange}
-                // value={success ? '' : form.email}
-                // value=''
+                value={form.email}
               />
               <PasswordInput
                 placeholder={"Пароль"}
                 icon={"ShowIcon"}
-                // value={success ? null : form.password}
-                // value={''}
+                value={form.password}
                 name={"password"}
                 onChange={onChange}
                 extraClass="pt-6"
               />
               <Button
-                htmlType="button"
+                htmlType="submit"
                 type="primary"
-                onClick={() => {
-                  dispatch(postRegistration(form));
-
-                  // onIconClick()
-                  if (success) {
-                    setValue("");
-                    goToNewPage();
-                  }
-                }}
                 size="medium"
                 extraClass={`mt-20 ${sty.submit}`}
               >
@@ -105,24 +89,13 @@ function Register() {
           >
             Уже зарегистрированы?
             <Link className={`${sty.link}`} to="/login">
-               Войти
+              Войти
             </Link>
           </h3>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default Register;
-
-// const onIconClick = () => {
-//   // setTimeout(() => inputRef.current.focus(), 0)
-//   // alert('Icon Click Callback')
-// }
-
-// const inputRef = useRef(null)
-// const onIconClick = () => {
-//   setTimeout(() => inputRef.current.focus(), 0)
-//   alert('Icon Click Callback')
-// }

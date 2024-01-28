@@ -11,8 +11,8 @@ import {
   BURGER_ID,
   SUM_PRICES,
 } from "../../services/AddIngredient/action";
-import { OPEN_MODAL_INGREDIENT } from "../../services/Modal/action";
-import { Link, useNavigate } from "react-router-dom";
+import { OPEN_MODAL_INGREDIENT } from "../../services/modal/action";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function MenuItem({ type, item }) {
   const { burgerIngredients, bun, ingredients } = useSelector(
@@ -25,13 +25,8 @@ function MenuItem({ type, item }) {
     item: item,
   });
   const navigate = useNavigate()
+  const location = useLocation()
 
-  // const openModal = (ingr) => {
-  //   dispatch({
-  //     type: OPEN_MODAL_INGREDIENT,
-  //     ingredient: ingr,
-  //   });
-  // };
 
   const openModal = useCallback(()=>{
     navigate(`/ingredient/${item._id}`, {state:{modal:true}})
@@ -61,13 +56,10 @@ function MenuItem({ type, item }) {
   return (
     <>
       {item.type === type ? (
-        <Link to={`/ingredient/${item._id}`} state={{from:'/'}} className={`${sty.link} text text_type_digits-default`}>
+        <Link to={`/ingredient/${item._id}`} state={{background: location}} className={`${sty.link} text text_type_digits-default`}>
         <li
           className={`${sty.card} pl-4 pr-4`}
           ref={dragRef}
-          // onClick={() => {
-          //   openModal();
-          // }}
           >
           {count.length > 0 ? (
             <Counter
@@ -103,7 +95,7 @@ MenuItem.propTypes = {
 
 
 
-
+///state={{from:'/'}} 
 
 
 
