@@ -16,7 +16,6 @@ function IngredientPage() {
 
   return (
     <>
-    {/* <HomePages/> */}
       <Modal closeModal={closeModal}>
         <IngredientsDetails />
       </Modal>

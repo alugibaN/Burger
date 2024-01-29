@@ -15,16 +15,6 @@ function ModalIngredient() {
   });
 
 
-  // if (location.state === null) {
-  //   return (
-  //     <>
-  //       <Modal closeModal={closeModal}>
-  //         <IngredientsDetails />
-  //       </Modal>
-  //     </>
-  //   );
-  // }
-
   return (
     <>
       <HomePages />
