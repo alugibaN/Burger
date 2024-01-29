@@ -11,7 +11,7 @@ import {
   BURGER_ID,
   SUM_PRICES,
 } from "../../services/AddIngredient/action";
-import { OPEN_MODAL_INGREDIENT } from "../../services/modal/action";
+import { OPEN_MODAL_INGREDIENT } from "../../services/Modal/action";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function MenuItem({ type, item }) {

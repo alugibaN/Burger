@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CLOUSE_MODAL_INGREDIENT,
   CLOUSE_MODAL_ORDER,
-} from "../services/modal/action";
+} from "../services/Modal/action";
 
 function HomePages() {
   const { openModalOrder, openModalIngredient } = useSelector(

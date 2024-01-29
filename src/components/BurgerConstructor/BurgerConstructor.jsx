@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../services/API/action";
 import { useDrop } from "react-dnd";
 import { ConstructorItem } from "../ConstructorItem/ConstructorItem";
-import { OPEN_MODAL_ORDER } from "../../services/modal/action";
+import { OPEN_MODAL_ORDER } from "../../services/Modal/action";
 import { addIngredient } from "../../services/AddIngredient/action";
 import {
   ADD_BUN,
