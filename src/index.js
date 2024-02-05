@@ -7,13 +7,15 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter } from 'react-router-dom';
+import { socketMiddleware } from './services/Middleware/socketMiddleware';
+import { wsActions } from './services/webSocket/action';
+import { getCookie } from './utils/cookie';
 
 
+const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
-
- 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsUrl))))
 
  root.render(
 	<Provider store={store}>

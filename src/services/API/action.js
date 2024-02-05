@@ -16,6 +16,8 @@ export const GET_PROFILE = 'GET_PROFILE'
 export const PATCH_PROFILE = 'PATCH_PROFILE'
 export const POST_PROFILE = 'POST_PROFILE'
 
+export const GET_ORDER = 'GET_ORDER'
+
 
 
 // получение ингредиентов 
@@ -35,9 +37,9 @@ export const getData = () => {
 };
 
 //отправка заказа 
-export const postOrder = (ingr) => {
+export const postOrder = (form, method) => {
   return function (dispatch) {
-    request(`orders`, postHead(ingr))
+    request(`orders`, authHead(form, method))
       .then((data) => {
         dispatch({
           type: POST_BURGER,
@@ -172,6 +174,20 @@ export const patchProfile = (form, method) =>{
         .catch(console.error);
       }
     }
+
+    // получение заказа 
+    export const getOrder = (order) => {
+      return function (dispatch) {
+        request(`orders/${order}`)
+          .then((data) => {
+            dispatch({
+              type: GET_ORDER,
+              messages: data
+            });
+          })
+          .catch(console.error);
+      };
+    };
 
 
   

@@ -1,37 +1,41 @@
-import sty from "./login.module.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/AppHeader";
+import sty from "./register.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import AppHeader from "../../components/AppHeader/AppHeader";
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../services/API/action";
-import { setCookie, getCookie } from "../utils/cookie.jsx";
+import { CLEAN, postRegistration } from "../../services/API/action";
 
-function Login() {
-  const [form, setValue] = useState({ email: "", password: "" });
+function Register() {
+  const { success } = useSelector((state) => state.registration);
+  const [form, setValue] = useState({ email: "", password: "", name: "" });
+  const {} = useSelector((store) => store.registration);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const token = getCookie("token");
+
+  useEffect(() => {
+    if (success) {
+      navigate("/login", { replace: true });
+      setValue("");
+      dispatch({
+        type: CLEAN,
+      });
+    }
+  }, [success]);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(postLogin(form));
-    navigate("/", { replace: true });
-
+    dispatch(postRegistration(form));
   });
-
-  if (token) {
-    return <Navigate to="/profile" replace />;
-  }
 
   return (
     <>
@@ -39,23 +43,35 @@ function Login() {
         <div className={`${sty.wrap}`}>
           <form className={`${sty.form}`} onSubmit={handleSubmit}>
             <h2 className={`${sty.title} mt-5 mb-5 text text_type_main-medium`}>
-              Вход
+              Зарегестрироваться
             </h2>
             <fieldset
               className={`${sty.fieldset} mt-5 mb-5 text text_type_main-large`}
             >
+              <Input
+                type={"text"}
+                placeholder={"Имя"}
+                name={"name"}
+                error={false}
+                errorText={"Ошибка"}
+                size={"default"}
+                onChange={onChange}
+                value={form.name}
+              />
               <EmailInput
                 isIcon={false}
+                placeholder={"E-mail"}
                 name={"email"}
                 extraClass={"mt-6"}
                 onChange={onChange}
                 value={form.email}
               />
               <PasswordInput
+                placeholder={"Пароль"}
                 icon={"ShowIcon"}
+                value={form.password}
                 name={"password"}
                 onChange={onChange}
-                value={form.password}
                 extraClass="pt-6"
               />
               <Button
@@ -64,22 +80,16 @@ function Login() {
                 size="medium"
                 extraClass={`mt-20 ${sty.submit}`}
               >
-                Войти
+                Зарегистрироваться
               </Button>
             </fieldset>
           </form>
           <h3
             className={`${sty.subtitli}text text_type_main-default text_color_inactive mt-10`}
           >
-            Вы - новый пользователь?{" "}
-            <Link className={`${sty.link}`} to="/register">
-              Зарегестрироваться
-            </Link>
-          </h3>
-          <h3 className="text text_type_main-default text_color_inactive">
-            Забыли пароль?{" "}
-            <Link to="/forgot-password" className={`${sty.link}`}>
-              Восстановить пароль
+            Уже зарегистрированы?
+            <Link className={`${sty.link}`} to="/login">
+              Войти
             </Link>
           </h3>
         </div>
@@ -88,4 +98,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

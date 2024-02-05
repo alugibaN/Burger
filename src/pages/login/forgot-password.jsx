@@ -1,6 +1,6 @@
 import sty from "./login.module.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/AppHeader";
+import AppHeader from "../../components/AppHeader/AppHeader";
 import {
   Button,
   EmailInput,
@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CLEAN, postForgotPassword } from "../services/API/action";
+import { CLEAN, postForgotPassword } from "../../services/API/action";
 
 function ForgotPassword() {
   const { successEmail } = useSelector((state) => state.registration);

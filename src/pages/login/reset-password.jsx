@@ -1,6 +1,6 @@
 import sty from "./reset-password.module.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/AppHeader";
+import AppHeader from "../../components/AppHeader/AppHeader";
 import {
   Button,
   EmailInput,
@@ -8,7 +8,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CLEAN, postResetPassword } from "../services/API/action";
+import { CLEAN, postResetPassword } from "../../services/API/action";
 import { useDispatch, useSelector } from "react-redux";
 
 function ResetPassword() {
