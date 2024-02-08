@@ -1,13 +1,12 @@
 import sty from "./register.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import AppHeader from "../../components/AppHeader/AppHeader";
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CLEAN, postRegistration } from "../../services/API/action";
 

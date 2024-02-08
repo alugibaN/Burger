@@ -17,13 +17,19 @@ import ProfileOrdersModal from "../../pages/profile/ProfileOrdersModal";
 import FeedModal from "../../pages/feed/FeedModal";
 import FeedNumberPage from "../../pages/feed/FeedNumberPage";
 import ProfileOrdersPage from "../../pages/profile/ProfileOrdersPage";
-
-
+import { useEffect } from "react";
+import { getData } from "../../services/API/action";
+import { useDispatch } from "react-redux";
 
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+  
   return (
     <>
       <Routes location={background || location}>
@@ -39,7 +45,10 @@ function App() {
               element={<OnlyAuth component={<ProfileOrders />} />}
             />
           </Route>
-          <Route path="profile/orders/:number" element={<OnlyAuth component={<ProfileOrdersPage />}/>} /> 
+          <Route
+            path="profile/orders/:number"
+            element={<OnlyAuth component={<ProfileOrdersPage />} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -51,8 +60,10 @@ function App() {
         <Routes>
           <Route path="/ingredient/:id" element={<ModalIngredient />} />
           <Route path="/feed/:number" element={<FeedModal />} />
-          <Route path="profile/orders/:number" element={<OnlyAuth component={<ProfileOrdersModal />}/>} /> 
-
+          <Route
+            path="profile/orders/:number"
+            element={<OnlyAuth component={<ProfileOrdersModal />} />}
+          />
         </Routes>
       )}
     </>
@@ -60,13 +71,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <Route path ="feed/:number" element = {<FeedNumberModal/>}/> */
-}
-{
-  /* <Route path ="/feed/:number" element = {<FeedNumberModal/>}/> */
-}
-{
-  /* <Route path="profile/orders/:number" element={<OnlyAuth component={<ProfileOrdersModal />}/>} /> */
-}

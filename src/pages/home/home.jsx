@@ -55,4 +55,3 @@ function HomePages() {
 }
 
 export default HomePages;
-

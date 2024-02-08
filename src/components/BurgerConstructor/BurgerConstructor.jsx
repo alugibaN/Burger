@@ -61,7 +61,7 @@ function BurgerConstructor() {
     e.preventDefault();
     if((bun && burgerIngredients.length !== 0 && token)){
     onOpen();
-    dispatch(postOrder({ingredients:ingredients}, 'POST'));
+    dispatch(postOrder({ingredients:ingredients}));
     } else{
       navigate('/login')
     }

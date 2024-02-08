@@ -1,20 +1,17 @@
 import sty from "./login.module.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../../components/AppHeader/AppHeader";
+import { Link, Navigate } from "react-router-dom";
 import {
   Button,
   EmailInput,
-  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CLEAN, postForgotPassword } from "../../services/API/action";
+import { postForgotPassword } from "../../services/API/action";
 
 function ForgotPassword() {
   const { successEmail } = useSelector((state) => state.registration);
   const [form, setValue] = useState({ email: "" });
   const dispatch = useDispatch();
-
 
   const onChange = (e) => {
     setValue({ [e.target.name]: e.target.value });

@@ -1,47 +1,65 @@
-import { Link, Outlet } from 'react-router-dom';
-import sty from './appHeader.module.css'
-import {Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import sty from "./appHeader.module.css";
+import {
+  Logo,
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
+function AppHeader() {
+  const location = useLocation();
+  const setActive = ({ isActive }) =>
+    isActive
+      ? `${sty.activ} text text_type_main-default pl-2 ${sty.link}`
+      : `text text_type_main-default text_color_inactive pl-2 ${sty.link}`;
 
-
-function AppHeader (){
-return(
-  <>
-    <header  className={ `${sty.header} mb-5`}>
-      <div className={sty.wr}>
-        <a href='/' className={sty.link}>
-          < Logo/>
-       </a>
-      </div>
-      <nav className={sty.nav}>
-        <ul className={sty.spisok}>
-          <div className={sty.wrap}>
+  return (
+    <>
+      <header className={`${sty.header} mb-5`}>
+        <div className={sty.wr}>
+          <a href="/" className={sty.link}>
+            <Logo />
+          </a>
+        </div>
+        <nav className={sty.nav}>
+          <ul className={sty.spisok}>
+            <div className={`${sty.wrap} ml-4`}>
+              <li className={sty.li}>
+                <NavLink end to="/" className={setActive}>
+                  <BurgerIcon
+                    type={location.pathname === "/" ? "primary" : "secondary"}
+                  />
+                  <p className={`${sty.subtitle} ml-2`}>Конструктор</p>
+                </NavLink>
+              </li>
+              <li className={sty.li}>
+                <NavLink to="/feed" className={setActive}>
+                  <ListIcon
+                    type={
+                      location.pathname === "/feed" ? "primary" : "secondary"
+                    }
+                  />
+                  <p className={`${sty.subtitle} ml-2`}>Лента заказов</p>
+                </NavLink>
+              </li>
+            </div>
             <li className={sty.li}>
-              <Link to="/" className={sty.link}>
-                <BurgerIcon type="primary" />
-              <h3 className={ `${sty.subtitle} ml-2 mr-5 text text_type_main-default`}>Конструктор</h3>
-              </Link>
+              <NavLink to="/login" className={setActive}>
+                <ProfileIcon
+                  type={
+                    location.pathname === "/login" ? "primary" : "secondary"
+                  }
+                />
+                <p className={`${sty.subtitle} ml-2`}>Личный кабинет</p>
+              </NavLink>
             </li>
-            <li className={sty.li}>
-              <Link to="/feed" className={sty.link}>
-                <ListIcon type="secondary" />
-              <h3 className='ml-2 mr-5 text text_type_main-default text_color_inactive'>Лента заказов</h3>
-             </Link>
-            </li> 
-          </div>
-          <li className={sty.li}>
-            <Link to="/login" className={sty.link}>
-              <ProfileIcon type="secondary" />
-            <h3 className='ml-2 mr-5 text text_type_main-default text_color_inactive'>Личный кабинет</h3>
-            </Link>
-          </li>
-      </ul>
-    </nav> 
-    </header>
-    <Outlet />
+          </ul>
+        </nav>
+      </header>
+      <Outlet />
     </>
-    
-)
+  );
 }
 
 export default AppHeader;

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { modalReducer } from './Modal/reducer';
-import { ingredientReducer, registration, registrationReducer } from './API/reducer';
+import { dataSlice, ingredientReducer, registration, registrationReducer } from './API/reducer';
 import { menuReducer } from './ActivMenu/reducer';
 import { constructorIngredientReducer } from './AddIngredient/reducer'
 import { wsReducer } from './webSocket/reducer';

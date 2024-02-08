@@ -6,8 +6,11 @@ export function checkResponse(res) {
   if (res.ok) {
     return res.json();
 }
-return Promise.reject(`Ошибка ${res.status}`);
-}
+return res.json().then(error => {
+  throw error;
+
+  // throw new Error(error.message);
+});}
 
 export function request(url, options) {
   
@@ -40,7 +43,7 @@ export const postHeadLogin = (form) =>{
   }
 }
 
-export const  authHead = (form, metod) =>{
+export const  authHead = (form, metod ='GET') =>{
   return { 
     method: metod,
         mode: 'cors',

@@ -1,4 +1,4 @@
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE } from "./action";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE, GET_ORDER } from "./action";
 
 const initialState = {
   wsConnected: false,
@@ -35,7 +35,8 @@ export const wsReducer = (state = initialState, action) => {
       return {
         ...state,
                 error: undefined,
-        wsConnected: false
+        wsConnected: false,
+        orders:'закрыто'
       };
 
         // Опишем обработку экшена с типом WS_GET_MESSAGE
@@ -48,6 +49,11 @@ export const wsReducer = (state = initialState, action) => {
         messages: action.payload,
         // orders:[...state.messages, action.payload.orders]
       };
+      case GET_ORDER:
+        return {
+          ...state,
+          messages:action.messages
+        }
     default:
       return state;
   }

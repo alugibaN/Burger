@@ -2,17 +2,12 @@ import sty from "./BurgerIngredients.module.css";
 import React, { useEffect, useRef } from "react";
 import MenuItem from "../MenuItems/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../../services/API/action";
 import { ACTIV_MENU } from "../../services/ActivMenu/action";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
   const { data, dataSuccess } = useSelector((state) => state.card);
   const { activ } = useSelector((state) => state.menu);
-
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
 
   const parentRef = useRef(null);
   const bunRef = useRef(null);

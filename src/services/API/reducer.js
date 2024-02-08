@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { setCookie } from "../../utils/cookie";
 import {
   REGISTRATION,
@@ -10,6 +11,7 @@ import {
   GET_PROFILE,
   PATCH_PROFILE,
   GET_ORDER,
+  getProfile,
 } from "./action";
 
 const initialState = {
@@ -46,7 +48,8 @@ const initialRegistration = {
   email: "",
   name: "",
   password: null,
-  order:[]
+  order:[],
+  status: false
 };
 
 export const registrationReducer = (state = initialRegistration, action) => {
@@ -97,6 +100,7 @@ export const registrationReducer = (state = initialRegistration, action) => {
     case GET_PROFILE:
       return {
         ...state,
+        user:action.user,
         email: action.user.user.email,
         name: action.user.user.name,
       };
@@ -107,13 +111,31 @@ export const registrationReducer = (state = initialRegistration, action) => {
         name: action.user.user.name,
         user: action.user,
       };
-      case GET_ORDER:
-        return {
-          ...state,
-          order:action.messages
-        }
     default: {
       return state;
     }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// case REFRESH_TOKEN:
+//       let accessToken = action.user.accessToken.split("Bearer ")[1];
+//       setCookie("token", accessToken);
+//       return {
+//         ...state,
+//         user: action.user,
+//         authToken: accessToken,
+//         success: action.user.success,
+//       };

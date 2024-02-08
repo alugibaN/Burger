@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import sty from "./profile.module.css";
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/AppHeader/AppHeader";
@@ -12,12 +12,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCookie, getCookie } from "../../utils/cookie";
 import {
-  getProfile,
-  postLogOut,
   patchProfile,
-  postToken,
+  getProfile,
 } from "../../services/API/action";
-import { useCookies } from "react-cookie";
+import { authHead } from '../../utils/utils';
 
 
 function ProfileForm ()  {
@@ -44,21 +42,19 @@ function ProfileForm ()  {
 
   const patchSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(patchProfile(form, "PATCH"));
+    dispatch(patchProfile(form));
     setIsInputActive(false);
   });
 
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [success]);
+  useMemo(() => {
+    dispatch(getProfile({token:refreshToken}));
+  }, [token] );
 
   useEffect(() => {
     if (user) {
       setValue({ ...form, email: email, name: name });
     }
-  }, [isInputActive]);
-
-  
+  }, [email, name]);
   
   return (
     <form onSubmit={patchSubmit}>
@@ -68,18 +64,15 @@ function ProfileForm ()  {
         placeholder={"Имя"}
         icon={isInputActive ? "CloseIcon" : "EditIcon"}
         name={"name"}
-        // error={false}
         errorText={"Ошибка"}
         size={"default"}
         extraClass="mt-4 mb-4"
         value={isInputActive ? form.name : name}
-        // value={form.name}
         onChange={onChange}
         disabled={!isInputActive}
         onIconClick={onIconClick}
       />
       <EmailInput
-        // isIcon={false}
         name={"email"}
         extraClass="mt-4 mb-4"
         icon={isInputActive ? "CloseIcon" : "EditIcon"}
@@ -90,7 +83,6 @@ function ProfileForm ()  {
       />
       <PasswordInput
         icon={isInputActive ? undefined : "EditIcon"}
-        // icon={"" }
         value={form.password}
         name={"password"}
         onChange={onChange}

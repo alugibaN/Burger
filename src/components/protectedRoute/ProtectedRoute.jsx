@@ -2,19 +2,6 @@
 import { Navigate, Route, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 
-// export function ProtectedRouteElement({ element }) {
-
-// const token = getCookie('token')
-
-//     if (!token) {
-//     return (
-//       <Navigate to={'/login'} replace></Navigate>
-//     );
-//   }
-
-//     return token ? element : <Navigate to="/profile" replace/>;
-// }
-
 export default function ProtectedRoute({ component, anonymous = false }) {
   // const {succes} = useSelector((store) => store.registration);
 const token = getCookie('token')
@@ -38,3 +25,23 @@ const token = getCookie('token')
 }
 
 export const OnlyAuth = ({ component })=> ( <ProtectedRoute component={component} onlyAuth={true} />)
+
+
+
+
+
+
+
+
+// export function ProtectedRouteElement({ element }) {
+
+// const token = getCookie('token')
+
+//     if (!token) {
+//     return (
+//       <Navigate to={'/login'} replace></Navigate>
+//     );
+//   }
+
+//     return token ? element : <Navigate to="/profile" replace/>;
+// }

@@ -42,7 +42,7 @@ function MenuItem({ type, item }) {
   const addIdIngredients = () => {
     return {
       type: BURGER_ID,
-      idIngr: [...bun, ...burgerIngredients],
+      idIngr: [...bun, ...burgerIngredients, ...bun],
     };
   };
 

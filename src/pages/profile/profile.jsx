@@ -1,12 +1,9 @@
 import sty from "./profile.module.css";
-import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { deleteCookie, getCookie } from "../../utils/cookie";
-import { postLogOut, postToken } from "../../services/API/action";
-import {
-  WS_CONNECTION_START_AUTH,
-} from "../../services/webSocket/action";
+import { postLogOut } from "../../services/API/action";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -24,12 +21,6 @@ function Profile() {
       ? `text text_type_main-medium ${sty.li__activ}`
       : `text text_type_main-medium text_color_inactive `;
 
-  useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START_AUTH,
-    });
-  }, []);
-
   if (!token) {
     return <Navigate to={"/login"} replace />;
   }
@@ -45,7 +36,6 @@ function Profile() {
           </li>
           <li className={sty.li}>
             <NavLink to="/profile/orders" className={setActive}>
-
               История заказов
             </NavLink>
           </li>
@@ -71,4 +61,3 @@ function Profile() {
 }
 
 export default Profile;
-
