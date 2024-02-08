@@ -8,7 +8,6 @@ export function checkResponse(res) {
 }
 return res.json().then(error => {
   throw error;
-
   // throw new Error(error.message);
 });}
 
@@ -43,7 +42,7 @@ export const postHeadLogin = (form) =>{
   }
 }
 
-export const  authHead = (form, metod ='GET') =>{
+export const  authHead = (form, metod='GET') =>{
   return { 
     method: metod,
         mode: 'cors',
@@ -53,6 +52,24 @@ export const  authHead = (form, metod ='GET') =>{
           'Content-Type': 'application/json',
                 // Отправляем токен и схему авторизации в заголовке при запросе данных
           Authorization: 'Bearer ' + getCookie('token')
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(form)
+        }
+  
+}
+
+export const  authHeadToken = (form, token, metod='GET') =>{
+  return { 
+    method: metod,
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+                // Отправляем токен и схему авторизации в заголовке при запросе данных
+          Authorization: 'Bearer ' + `${token}`
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',

@@ -1,7 +1,7 @@
 import AppHeader from "../../components/AppHeader/AppHeader";
 import sty from "./feed.module.css";
 import FeedOrder from "../../components/feedOrders/feedOrder";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -12,18 +12,12 @@ import {
 
 function FeedPage() {
   const { messages } = useSelector((state) => state.ws);
-  const location = useLocation();
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
     });
-    return () => {
-      dispatch({
-        type: WS_CONNECTION_CLOSED,
-      });
-    };
   }, [dispatch]);
 
   const lastReadyOrders = useMemo(() => {

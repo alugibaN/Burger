@@ -6,16 +6,18 @@ import { deleteCookie, getCookie } from "../../utils/cookie";
 import { postLogOut } from "../../services/API/action";
 
 function Profile() {
+  
   const dispatch = useDispatch();
 
   const token = getCookie("token");
   const refreshToken = getCookie("refreshToken");
 
-  const out = useCallback(() => {
+  const out = () => {
     dispatch(postLogOut({ token: refreshToken }));
     deleteCookie("token");
     deleteCookie("refreshToken");
-  });
+  };
+
   const setActive = ({ isActive }) =>
     isActive
       ? `text text_type_main-medium ${sty.li__activ}`
@@ -30,7 +32,7 @@ function Profile() {
       <div className={sty.wrap}>
         <menu className={`${sty.menu} mr-8`}>
           <li className={sty.li}>
-            <NavLink end to="/profile" className={setActive}>
+            <NavLink end to="/profile" className={setActive} >
               Профиль
             </NavLink>
           </li>

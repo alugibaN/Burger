@@ -10,12 +10,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCookie, getCookie } from "../../utils/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import {
   patchProfile,
   getProfile,
+  tt,
 } from "../../services/API/action";
-import { authHead } from '../../utils/utils';
+import { authHead, request } from '../../utils/utils';
 
 
 function ProfileForm ()  {
@@ -31,6 +32,7 @@ function ProfileForm ()  {
   const token = getCookie("token");
   const refreshToken = getCookie("refreshToken");
 
+
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
@@ -42,7 +44,7 @@ function ProfileForm ()  {
 
   const patchSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(patchProfile(form));
+    dispatch(patchProfile(form, {token: refreshToken})); 
     setIsInputActive(false);
   });
 

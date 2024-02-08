@@ -6,13 +6,22 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { WS_CONNECTION_CLOSE } from "../../services/webSocket/action";
+import { useDispatch } from "react-redux";
 
 function AppHeader() {
   const location = useLocation();
+  const dispatch = useDispatch()
   const setActive = ({ isActive }) =>
     isActive
       ? `${sty.activ} text text_type_main-default pl-2 ${sty.link}`
       : `text text_type_main-default text_color_inactive pl-2 ${sty.link}`;
+
+      const clouseWs= ()=>{
+         dispatch({
+           type: WS_CONNECTION_CLOSE,
+         });
+       }
 
   return (
     <>
@@ -25,7 +34,7 @@ function AppHeader() {
         <nav className={sty.nav}>
           <ul className={sty.spisok}>
             <div className={`${sty.wrap} ml-4`}>
-              <li className={sty.li}>
+              <li className={sty.li} onClick={clouseWs}>
                 <NavLink end to="/" className={setActive}>
                   <BurgerIcon
                     type={location.pathname === "/" ? "primary" : "secondary"}
@@ -33,7 +42,7 @@ function AppHeader() {
                   <p className={`${sty.subtitle} ml-2`}>Конструктор</p>
                 </NavLink>
               </li>
-              <li className={sty.li}>
+              <li className={sty.li} >
                 <NavLink to="/feed" className={setActive}>
                   <ListIcon
                     type={
@@ -44,7 +53,7 @@ function AppHeader() {
                 </NavLink>
               </li>
             </div>
-            <li className={sty.li}>
+            <li className={sty.li} onClick={clouseWs}>
               <NavLink to="/login" className={setActive}>
                 <ProfileIcon
                   type={

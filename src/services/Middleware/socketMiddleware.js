@@ -20,6 +20,10 @@ export const socketMiddleware = (wsUrl) => {
         // объект класса WebSocket
         socket = new WebSocket(`${wsUrl}?token=${authToken}`)
       }
+      if (socket && type === "WS_CONNECTION_CLOSE") {
+        // Закрываем соединение
+        socket.close();
+      }
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = (event) => {

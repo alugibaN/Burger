@@ -17,14 +17,17 @@ import ProfileOrdersModal from "../../pages/profile/ProfileOrdersModal";
 import FeedModal from "../../pages/feed/FeedModal";
 import FeedNumberPage from "../../pages/feed/FeedNumberPage";
 import ProfileOrdersPage from "../../pages/profile/ProfileOrdersPage";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { getData } from "../../services/API/action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_CLOSED } from "../../services/webSocket/action";
 
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
+  const { messages } = useSelector((state) => state.ws);
+
 
   useEffect(() => {
     dispatch(getData());

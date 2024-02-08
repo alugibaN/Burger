@@ -1,5 +1,11 @@
 import { getCookie, setCookie } from "../../utils/cookie";
-import { authHead, postHead, postHeadLogin, request } from "../../utils/utils";
+import {
+  authHead,
+  authHeadToken,
+  postHead,
+  postHeadLogin,
+  request,
+} from "../../utils/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const GET_DATA = "GET_DATA";
@@ -17,8 +23,8 @@ export const GET_PROFILE = "GET_PROFILE";
 export const PATCH_PROFILE = "PATCH_PROFILE";
 export const POST_PROFILE = "POST_PROFILE";
 export const REFRESH_TOKEN = "REFRESH_TOKEN";
-const refreshToken = getCookie("refreshToken");
-
+const refreshTok = getCookie("refreshToken");
+const token = getCookie("token");
 
 // получение ингредиентов
 export const getData = () => {
@@ -37,9 +43,9 @@ export const getData = () => {
 };
 
 //отправка заказа
-export const postOrders = (form) => {
+export const postO = (form) => {
   return function (dispatch) {
-    request(`orders`, authHead(form, 'POST'))
+    request(`orders`, authHead(form, "POST"))
       .then((data) => {
         dispatch({
           type: POST_BURGER,
@@ -164,15 +170,14 @@ export const postToken = (token, method) => {
   return function (dispatch) {
     request("auth/token", authHead(token, method))
       .then((data) => {
-        dispatch({
-          type: LOGIN,
-          user: data,
-        });
+        // dispatch({
+        //   type: LOGIN,
+        //   user: data,
+        // });
       })
       .catch(console.error);
   };
 };
-
 
 export const getProfile = (token) => {
   return async (dispatch) => {
@@ -192,66 +197,73 @@ export const getProfile = (token) => {
   };
 };
 
-
-export const patchProfile = (form, token) => {
+export const postOrder = (form, token) => {
   return async (dispatch) => {
     try {
-      dispatch(patchProf(form, "PATCH"));
+      const res = await request(`orders`, authHead(form, "POST")).then(
+        (data) => {
+          dispatch({
+            type: POST_BURGER,
+            order: data,
+          });
+        }
+      );
     } catch (err) {
+      // console.log(err.message === "jwt expired")
       if (err.message === "jwt expired") {
-        await dispatch(postToken(token));
-        const res = await request("auth/user", authHead(form, "PATCH"));
-        dispatch({
-          type: PATCH_PROFILE,
-          user: res,
-        });
+        const refreshT = await request("auth/token", postHeadLogin(token));
+        let tokenn = refreshT.accessToken.split("Bearer ")[1];
+        setCookie("token", tokenn);
+        setCookie("refreshToken", refreshT.refreshToken);
+        if (refreshT.success) {
+          const res = await request()}
+        
+        const res = await request(`orders`, authHead(form, "POST")).then(
+          (data) => {
+            dispatch({
+              type: POST_BURGER,
+              order: data,
+            });
+          }
+        );
       } else {
-        throw new Error(err);
+        return Promise.reject(err);
       }
     }
   };
 };
- export const postOrder = (form) => {
-    return async (dispatch) => {
-      try {
-        dispatch(postOrders(form));
-      } catch (err) {
-        if (err.message === "jwt expired") {
-          await dispatch(postToken({token:refreshToken}));
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-          const res = request(`orders`, authHead(form, "POST"));
+
+export const patchProfile = (form, token) => {
+  return async (dispatch) => {
+    try {
+      const res = await request("auth/user", authHead(form, "PATCH")).then(
+        (data) => {
           dispatch({
-            type: POST_BURGER,
-            order: res,
+            type: PATCH_PROFILE,
+            user: data,
+          });
+        }
+      );
+    } catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshT = await request("auth/token", postHeadLogin(token));
+        let tokenn = refreshT.accessToken.split("Bearer ")[1];
+        setCookie("token", tokenn);
+        setCookie("refreshToken", refreshT.refreshToken);
+        if (refreshT.success) {
+          const res = await request(
+            "auth/user",
+            authHeadToken(form, tokenn, "PATCH")
+          ).then((data) => {
+            dispatch({
+              type: PATCH_PROFILE,
+              user: data,
+            });
           });
         } else {
-          return Promise.reject(err);
+          throw new Error(err);
         }
       }
-    };
+    }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
