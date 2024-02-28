@@ -1,54 +1,45 @@
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import sty from "./app.module.css";
-import OrderDetails from "../modal/OrderDetails/OrderDetails";
-// import ModalOverlay from '../modal/ModalOverlay/ModalOverlay'
-import IngredientsDetails from "../modal/IngredientDetails/IngredientDetails";
-import Modal from "../modal/ModalOverlay/Modal";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux";
-import { CLOUSE_MODAL_INGREDIENT, CLOUSE_MODAL_ORDER } from "../../services/Modal/action";
+// import { Route, Routes, Switch } from "react-router-dom";
+import { Route, Switch, Routes, Outlet, useLocation } from 'react-router-dom';
+import HomePages from "../../pages/home";
+import Login from "../../pages/login";
+import Register from "../../pages/register";
+import ForgotPassword from "../../pages/forgot-password";
+import ResetPassword from "../../pages/reset-password";
+import Profile from "../../pages/profile";
+import { ProtectedRouteElement } from "../protectedRouteElement/ProtectedRouteElement";
+import ModalIngredient from "../../pages/ingredient";
+import FeedPage from '../../pages/feed';
+import AppHeader from '../AppHeader/AppHeader';
+import IngredientPage from '../../pages/ingredientPage';
 
 function App() {
-  const { openModalOrder, openModalIngredient } = useSelector((state) => state.modal);
-  const dispatch = useDispatch()
 
-  const closeModalIngreient = ()=>{
-   dispatch({
-    type:  CLOUSE_MODAL_INGREDIENT
-    })
-  }
-
-   const  closeModalOrder = ()=>{
-    dispatch({
-      type: CLOUSE_MODAL_ORDER
-    })
-  }
-  
-
-  return (
-    <div>
-      <AppHeader />
-      <main className={`${sty.main}`}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-      {openModalOrder ? (
-        <Modal closeModal={closeModalOrder}>
-          <OrderDetails/>
-        </Modal>
-      ) : null}
-      {openModalIngredient ? (
-        <Modal closeModal= {closeModalIngreient} >
-          <IngredientsDetails/>
-        </Modal>
-      ) : null}
-    </div>
-  );
+  const location = useLocation();
+    const background = location.state && location.state.background;
+  return(
+    <>
+    <Routes location={background || location}>
+      <Route path='' element={<AppHeader/>}>
+        <Route path="/" element={<HomePages />} />
+        <Route path="ingredient/:id" element={<IngredientPage />} />
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />}/>
+        <Route path="/forgot-password" element={<ForgotPassword />}/>
+        <Route path="/forgot-password" element={<ForgotPassword />}/>
+        <Route path="/reset-password" element={<ResetPassword />}/>
+        <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
+      </Route>
+    </Routes>
+    {background && (
+      <Routes>
+      <Route
+      path='/ingredient/:id'
+      element={<ModalIngredient/>}/>
+      </Routes>
+    )}
+    </>
+  )
 }
 
 export default App;

@@ -44,3 +44,15 @@
   z-index: 2;
 }
 
+.wrapp{
+    margin: auto; 
+    position: relative;
+    width:100%;
+    max-width: 720px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding:0
+  
+}

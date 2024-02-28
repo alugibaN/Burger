@@ -7,6 +7,7 @@
   margin:auto;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .nav{
@@ -44,6 +45,8 @@
   list-style-type: none;
   display: flex;
     align-items: center;
+    width: 100%;
+    max-width: 210px;
 
 }
 .link{
@@ -54,10 +57,14 @@
 
 .wrap{
   display: flex;
+  width: 100%;
+  max-width: 360px;
+  justify-content: space-between;
 }
 .wr{
   position:absolute;
   top:16px;
+  margin: 0 auto;
 }
 
 .subtitle{

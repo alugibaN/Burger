@@ -59,11 +59,12 @@ function BurgerIngredients() {
       }
     };
   });
+  
 
   return (
     <section className={`pt-5 ${sty.constructor} mr-5`}>
       <h2 className="mt-5 mb-5 text text_type_main-large">Соберите бургер</h2>
-      <div className={`mb-5 mt-5`}>
+      <div className={`${sty.constructor_header} mb-5 mt-5`}>
         <button
           className={`${
             sty.button
@@ -96,7 +97,7 @@ function BurgerIngredients() {
         <p>'Загрузка'</p>
       ) : (
         <div className={`${sty.cards} custom-scroll`} ref={parentRef}>
-          <h3 className={` text text_type_main-medium mb-3`} ref={bunRef}>
+          <h3 className={`${sty.card__header} text text_type_main-medium mb-3`} ref={bunRef}>
             Булки
           </h3>
           <ul className={`${sty.menu} pl-4 pr-4`}>
@@ -105,7 +106,7 @@ function BurgerIngredients() {
             ))}
           </ul>
           <h3
-            className={`${sty.teg} text text_type_main-medium mb-3`}
+            className={`${sty.card__header} text text_type_main-medium mb-3`}
             ref={sauceRef}
           >
             Соусы
@@ -115,7 +116,7 @@ function BurgerIngredients() {
               <MenuItem key={`${item._id}`} item={item} type={"sauce"} />
             ))}
           </ul>
-          <h3 className={`text text_type_main-medium mb-3`} ref={mainRef}>
+          <h3 className={` ${sty.card__header} text text_type_main-medium mb-3`} ref={mainRef}>
             Начинка
           </h3>
           <ul className={`${sty.menu} pl-4 pr-4`}>

@@ -16,12 +16,15 @@ import {
   ADD_BUN,
   MOVE_INGREDIENT,
 } from "../../services/AddIngredient/action";
+import { getCookie } from "../../utils/cookie";
+import { useNavigate } from "react-router-dom";
 
 function BurgerConstructor() {
   const { burgerIngredients, ingredients, bun, totalSum, flag } =
     useSelector((state) => state.ingr);
-
+  const token = getCookie('token')
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const onOpen = () => {
     dispatch({
@@ -53,6 +56,16 @@ function BurgerConstructor() {
       toIndex: hoverIndex,
     });
   }, []);
+
+  const submitOrder =((e)=>{
+    e.preventDefault();
+    if((bun && burgerIngredients.length !== 0 && token)){
+    onOpen();
+    dispatch(postOrder(ingredients));
+    } else{
+      navigate('/login')
+    }
+  })
 
   return (
     <section className={`${sty.burgerConstructor} mt-15 ml-5 `}>
@@ -122,10 +135,9 @@ function BurgerConstructor() {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={() => {
-            onOpen();
-            dispatch(postOrder(ingredients));
-          }}
+          // disabled={bun && ingredients.lengts < 1}
+          disabled={!bun || burgerIngredients.length < 1}
+          onClick={submitOrder}
         >
           Оформить заказ
         </Button>
