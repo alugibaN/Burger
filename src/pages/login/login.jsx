@@ -1,16 +1,14 @@
 import sty from "./login.module.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/AppHeader";
 import {
   Button,
   EmailInput,
-  Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../services/API/action";
-import { setCookie, getCookie } from "../utils/cookie.jsx";
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { postLogin } from "../../services/API/action.js";
+import { getCookie } from "../../utils/cookie.jsx";
 
 function Login() {
   const [form, setValue] = useState({ email: "", password: "" });
@@ -26,7 +24,6 @@ function Login() {
     e.preventDefault();
     dispatch(postLogin(form));
     navigate("/", { replace: true });
-
   });
 
   if (token) {

@@ -1,35 +1,40 @@
-import sty from "./reset-password.module.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/AppHeader";
+import sty from "./register.module.css";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { CLEAN, postResetPassword } from "../services/API/action";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CLEAN, postRegistration } from "../../services/API/action";
 
-function ResetPassword() {
-  const [form, setValue] = useState({ password: "", token: "" });
-  const { user } = useSelector((store) => store.registration);
+function Register() {
+  const { success } = useSelector((state) => state.registration);
+  const [form, setValue] = useState({ email: "", password: "", name: "" });
   const {} = useSelector((store) => store.registration);
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    if (success) {
+      navigate("/login", { replace: true });
+      setValue("");
+      dispatch({
+        type: CLEAN,
+      });
+    }
+  }, [success]);
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(postResetPassword(form));
+    dispatch(postRegistration(form));
   });
-
-  if (user.success) {
-    return <Navigate to={"/login"} replace />;
-  }
 
   return (
     <>
@@ -37,32 +42,36 @@ function ResetPassword() {
         <div className={`${sty.wrap}`}>
           <form className={`${sty.form}`} onSubmit={handleSubmit}>
             <h2 className={`${sty.title} mt-5 mb-5 text text_type_main-medium`}>
-              Восстановление пароля
+              Зарегестрироваться
             </h2>
             <fieldset
               className={`${sty.fieldset} mt-5 mb-5 text text_type_main-large`}
             >
+              <Input
+                type={"text"}
+                placeholder={"Имя"}
+                name={"name"}
+                error={false}
+                errorText={"Ошибка"}
+                size={"default"}
+                onChange={onChange}
+                value={form.name}
+              />
+              <EmailInput
+                isIcon={false}
+                placeholder={"E-mail"}
+                name={"email"}
+                extraClass={"mt-6"}
+                onChange={onChange}
+                value={form.email}
+              />
               <PasswordInput
-                placeholder={"Введите новый пароль"}
+                placeholder={"Пароль"}
                 icon={"ShowIcon"}
                 value={form.password}
                 name={"password"}
-                error={false}
-                errorText={"Ошибка"}
-                size={"default"}
-                extraClass="pt-6"
                 onChange={onChange}
-              />
-              <Input
-                type={"text"}
-                placeholder={"Введите код из письма"}
-                value={form.token}
-                name={"token"}
-                error={false}
-                errorText={"Ошибка"}
-                size={"default"}
                 extraClass="pt-6"
-                onChange={onChange}
               />
               <Button
                 htmlType="submit"
@@ -70,14 +79,14 @@ function ResetPassword() {
                 size="medium"
                 extraClass={`mt-20 ${sty.submit}`}
               >
-                Сохранить
+                Зарегистрироваться
               </Button>
             </fieldset>
           </form>
           <h3
             className={`${sty.subtitli}text text_type_main-default text_color_inactive mt-10`}
           >
-            Вспомнили пароль?{" "}
+            Уже зарегистрированы?
             <Link className={`${sty.link}`} to="/login">
               Войти
             </Link>
@@ -88,4 +97,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default Register;

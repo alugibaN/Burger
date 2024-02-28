@@ -1,5 +1,18 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { setCookie } from "../../utils/cookie";
-import {REGISTRATION, GET_DATA_SUCCESS, FORGOT_PASSWORD, CLEAN, RESET_PASSWORD, LOGIN, LOGOUT, GET_PROFILE, PATCH_PROFILE } from "./action";
+import {
+  REGISTRATION,
+  GET_DATA_SUCCESS,
+  FORGOT_PASSWORD,
+  CLEAN,
+  RESET_PASSWORD,
+  LOGIN,
+  LOGOUT,
+  GET_PROFILE,
+  PATCH_PROFILE,
+  GET_ORDER,
+  getProfile,
+} from "./action";
 
 const initialState = {
   data: [],
@@ -25,81 +38,104 @@ export const ingredientReducer = (state = initialState, action) => {
 };
 
 const initialRegistration = {
-  user:[],
-  success:false,
-  userEmail:[],
-  successEmail:false,
-  refreshToken:[],
-  successToken:[],
-  logout:[],
-  email:'',
-  name:'',
-  password:null,
-}
+  user: [],
+  success: false,
+  userEmail: [],
+  successEmail: false,
+  refreshToken: [],
+  successToken: [],
+  logout: [],
+  email: "",
+  name: "",
+  password: null,
+  order:[],
+  status: false
+};
 
-export const registrationReducer = (state =initialRegistration, action) => {
+export const registrationReducer = (state = initialRegistration, action) => {
   switch (action.type) {
-    case REGISTRATION: 
+    case REGISTRATION:
       return {
-        ...state, 
-        user:[action.user],
-        success: action.user.success
-      
-    }
-    case FORGOT_PASSWORD: 
-    return{
-      ...state,
-      userEmail:[action.user],
-      successEmail:action.user.success
-    }
+        ...state,
+        user: [action.user],
+        success: action.user.success,
+      };
+    case FORGOT_PASSWORD:
+      return {
+        ...state,
+        userEmail: [action.user],
+        successEmail: action.user.success,
+      };
     case CLEAN:
       return {
         ...state,
-        successEmail:false,
-        userEmail:[],
-        user:[],
-        success:false 
-      }
-      case RESET_PASSWORD:
-        return {
-          ...state,
-          user:action.user
-        }
-        case LOGIN:
-          let token = action.user.accessToken.split('Bearer ')[1];
-          let refreshToken = action.user.refreshToken
-          setCookie("token", token);
-          setCookie("refreshToken", refreshToken);
-          return {
-            ...state,
-            user:action.user,
-            authToken:token,
-            success:action.user.success
-
-          }
-          case LOGOUT:
-            return{
-              ...state,
-              logout:action.user,
-              accessToken:action.user.refreshToken,
-              user:[]
-            }
-            case GET_PROFILE:
-              return{
-                ...state,
-                email:action.user.user.email,
-                name:action.user.user.name,
-              }
-              case PATCH_PROFILE:
-              return{
-                ...state,
-                email:action.user.user.email,
-                name:action.user.user.name,
-                user:action.user
-
-              }
+        successEmail: false,
+        userEmail: [],
+        user: [],
+        success: false,
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        user: action.user,
+      };
+    case LOGIN:
+      let token = action.user.accessToken.split("Bearer ")[1];
+      let refreshToken = action.user.refreshToken;
+      setCookie("token", token);
+      setCookie("refreshToken", refreshToken);
+      return {
+        ...state,
+        user: action.user,
+        authToken: token,
+        success: action.user.success,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        logout: action.user,
+        accessToken: action.user.refreshToken,
+        user: [],
+      };
+    case GET_PROFILE:
+      return {
+        ...state,
+        user:action.user,
+        email: action.user.user.email,
+        name: action.user.user.name,
+      };
+    case PATCH_PROFILE:
+      return {
+        ...state,
+        email: action.user.user.email,
+        name: action.user.user.name,
+        user: action.user,
+      };
     default: {
       return state;
     }
   }
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// case REFRESH_TOKEN:
+//       let accessToken = action.user.accessToken.split("Bearer ")[1];
+//       setCookie("token", accessToken);
+//       return {
+//         ...state,
+//         user: action.user,
+//         authToken: accessToken,
+//         success: action.user.success,
+//       };

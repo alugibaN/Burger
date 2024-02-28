@@ -5,16 +5,13 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getData } from "../../../services/API/action";
 
 function IngredientsDetails() {
   const { data } = useSelector((state) => state.card);
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
+
 
   useEffect(() => {
     const idItem = data.find((ingr) => `${ingr._id}` === id);

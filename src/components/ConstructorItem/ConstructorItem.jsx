@@ -48,7 +48,7 @@ export function ConstructorItem({ item, index, moveCard }) {
   });
 
   const removeIngredientFromCart = useCallback(
-(ingr) => {
+    (ingr) => {
       dispatch({
         type: REMOVE_INGREDIENT,
         ingr,
@@ -79,7 +79,7 @@ export function ConstructorItem({ item, index, moveCard }) {
         thumbnail={item.image_large}
         moveCard={moveCard}
         handleClose={() => {
-        removeIngredientFromCart(item);
+          removeIngredientFromCart(item);
         }}
       />
     </li>

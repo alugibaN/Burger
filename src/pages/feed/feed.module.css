@@ -7,6 +7,22 @@
 .title{
   width:100%;
   max-width: 1170px;
+  margin-bottom: 0;
+}
+
+.menu{
+  max-width: 600px;
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders{
+  width: 100%;
+  max-width: 600px;
+  margin-right: 0;
 }
 .feed{
 display: flex;
@@ -21,8 +37,10 @@ list-style-type:none;
 }
 
 .feed__container_orders{
- display: flex;
- flex-direction: column;
+  display: inline-grid;
+  grid-template-rows: repeat(5, max-content);
+  grid-auto-flow: column;
+  gap: 10px;
 }
 
 .feed__number{
