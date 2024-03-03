@@ -1,0 +1,40 @@
+
+// tsconfig.json
+
+{
+  "compilerOptions": {
+    "target": "es5",
+
+    // "baseUrl": "./dependencies/nodejs/node_modules",
+    // "paths": {
+    //     "*" : ["*"]
+    // },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  // "include": [
+  //   "src"
+  // ]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "src/index.tsx"],
+  "exclude": ["node_modules", ".vscode"],
+  // "types": ["uuid"]
+  "types": ["uuid", "@types/css-modules"]
+
+
+}

@@ -21,6 +21,11 @@
   border-bottom: 1px solid #1c1c21;
 }
 
+.title{
+  width: 100%;
+  max-width: 500px;
+}
+
 .cards {
   max-width: 600px;
   width: 100%;

@@ -12,6 +12,8 @@
 .nav {
   width: 100%;
   max-width: 1980px;
+  display: flex;
+    justify-content: center;
 }
 
 .spisok {
