@@ -6,7 +6,7 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useState } from "react";
-import { useSelector, useDispatch } from "../../utils/hooks";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
 import { postForgotPassword } from "../../services/API/action";
 
 const ForgotPassword:React.FC = () => {

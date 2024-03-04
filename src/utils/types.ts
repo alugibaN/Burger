@@ -1,11 +1,11 @@
 import { store } from "..";
 import { TApiActions, TIngrActions } from "../services/API/action";
-import { TAddIngrActions } from "../services/AddIngredient/action";
-import { TModalActions } from "../services/Modal/action";
+import { TAddIngrActions } from "../services/addIngredient/action";
+import { TModalActions } from "../services/modal/action";
 import { TWSActions } from "../services/webSocket/action";
 import { ThunkAction } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
-import { TActivMenu } from "../services/ActivMenu/action";
+import { TActivMenu } from "../services/activMenu/action";
 import { Dispatch } from "react";
 
  export type TApplicationActions = 

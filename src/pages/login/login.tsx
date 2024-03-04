@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { postLogin } from "../../services/API/action";
 import { getCookie } from "../../utils/cookie.jsx";
-import { useDispatch } from "../../utils/hooks";
+import { useDispatch } from "../../utils/hooks/useDispatch";
 
 const Login:React.FC = () => {
   const [form, setValue] = useState({ email: "", password: "" });

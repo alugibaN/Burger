@@ -3,11 +3,11 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import sty from "./ConstructorItems.module.css";
+import sty from "./constructorItems.module.css";
 import { useCallback, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from '../../utils/hooks';
-import { REMOVE_INGREDIENT } from "../../services/AddIngredient/action";
+import { useDispatch } from '../../utils/hooks/useDispatch';
+import { REMOVE_INGREDIENT } from "../../services/addIngredient/action";
 
 interface IMovieProps {
   item: {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import sty from "./IngredientDetails.module.css";
-import { useSelector } from '../../../utils/hooks';
+import sty from "./ingredientDetails.module.css";
+import { useSelector } from '../../../utils/hooks/useDispatch';
 import { useParams } from "react-router-dom";
 import { IItem } from "../../../utils/utils";
 

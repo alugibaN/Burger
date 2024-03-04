@@ -5,7 +5,7 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import { useSelector } from '../../../utils/hooks';
+import { useSelector } from '../../../utils/hooks/useDispatch';
 
 const FeedNumberModal:React.FC = () => {
   const { data } = useSelector((state) => state.card);
@@ -19,7 +19,7 @@ const FeedNumberModal:React.FC = () => {
   const ingredients = item && data.filter( (ingredient) =>{
     return ingredient._id ? item.ingredients.includes(ingredient._id):null
   });
-    const price = item && ingredients ? ingredients.reduce((ac: number, el) => {
+    const price = item && ingredients ? ingredients.reduce((ac, el) => {
       return el.price ? ac + el.price : ac;
   }, 0) : 0;
 

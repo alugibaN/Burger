@@ -63,7 +63,7 @@ export const constructorIngredientReducer = (
 
       case SUM_PRICES:
         const total = [...state.bun, ...state.burgerIngredients, ...state.bun].reduce(
-          (sum:number, item):number => {
+          (sum, item) => {
             if(item && item.price) {
            return  sum + item.price
             }

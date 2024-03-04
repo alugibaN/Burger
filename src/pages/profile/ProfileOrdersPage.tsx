@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import FeedNumberModal from "../../components/modal/feedNumberModal/feedNumberModal";
-import { useDispatch } from "../../utils/hooks";
+import { useDispatch } from "../../utils/hooks/useDispatch";
 import { useParams } from "react-router-dom";
 import {
   getOrder,

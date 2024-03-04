@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import sty from "./profile.module.css";
-import { useNavigate } from "react-router-dom";
 import {
   Button,
   EmailInput,
@@ -8,8 +7,8 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "../../utils/hooks";
-import { getCookie } from "../../utils/cookie";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
+import { getCookie } from "../../utils/cookie.jsx";
 import { getProfi, patchProf } from '../../services/API/action';
 // import { getProfile, patchProfile } from '../../services/API/action';
 // import {
@@ -27,10 +26,8 @@ const ProfileForm:React.FC = () =>  {
   const [form, setValue] = useState({ email: "", password: "", name: "" });
   const [isInputActive, setIsInputActive] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const token = getCookie("token");
-  const refreshToken = getCookie("refreshToken");
 
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +38,6 @@ const ProfileForm:React.FC = () =>  {
     setIsInputActive(!isInputActive);
     setValue({ ...form, email: email, name: name });
 }, [isInputActive]);
-console.log(form)
 
   const patchSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,10 +1,8 @@
-import sty from "./BurgerIngredients.module.css";
-import React, { LegacyRef, useEffect, useRef } from "react";
-import MenuItem from "../MenuItems/MenuItem";
-import { useSelector, useDispatch } from '../../utils/hooks';
-import { ACTIV_MENU, activMenu } from "../../services/ActivMenu/action";
-import { IItem } from "../../utils/utils";
-
+import sty from "./burgerIngredients.module.css";
+import React, { useEffect, useRef } from "react";
+import MenuItem from "../menuItems/menuItem";
+import { useSelector, useDispatch } from '../../utils/hooks/useDispatch';
+import { activMenu } from "../../services/activMenu/action";
 const BurgerIngredients: React.FC = () => {
   const dispatch = useDispatch();
   const { data, dataSuccess } = useSelector((state) => state.card);
@@ -90,7 +88,7 @@ const BurgerIngredients: React.FC = () => {
             Булки
           </h3>
           <ul className={`${sty.menu} pl-4 pr-4`}>
-            {data.map((item:IItem) => (
+            {data.map((item) => (
               <MenuItem key={`${item._id}`} item={item} type={"bun"} />
             ))}
           </ul>
@@ -101,7 +99,7 @@ const BurgerIngredients: React.FC = () => {
             Соусы
           </h3>
           <ul className={`${sty.menu} pl-4 pr-4`}>
-            {data.map((item:IItem) => (
+            {data.map((item) => (
               <MenuItem key={`${item._id}`} item={item} type={"sauce"} />
             ))}
           </ul>
@@ -112,7 +110,7 @@ const BurgerIngredients: React.FC = () => {
             Начинка
           </h3>
           <ul className={`${sty.menu} pl-4 pr-4`}>
-            {data.map((item:IItem) => (
+            {data.map((item) => (
               <MenuItem key={`${item._id}`} item={item} type={"main"} />
             ))}
           </ul>

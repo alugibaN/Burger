@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useState } from "react";
 import { postResetPassword } from "../../services/API/action";
-import { useSelector, useDispatch } from "../../utils/hooks";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
 
 const ResetPassword:React.FC = () => {
   const [form, setValue] = useState({ password: "", token: "" });

@@ -1,33 +1,33 @@
 // // socketMiddleware.js
 // // import type { Middleware, MiddlewareAPI } from 'redux';
 // import WebSocket from 'ws';
-// import { Middleware } from 'redux';
+import { Middleware } from 'redux';
 // import { getCookie } from "../../utils/cookie";
 // interface User {
 //   name: string;
 //   age: number;
 // }
-
 import { MiddlewareAPI } from "redux";
-import { getCookie } from "../../utils/cookie";
+import { getCookie } from "../../utils/cookie.jsx";
+import { AppDispatch, RootState } from '../../utils/types';
 
-export const socketMiddleware = (wsUrl: string) => {
-  return (store: MiddlewareAPI) => {
+export const socketMiddleware = (wsUrl: string):Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
-    return (next: any) => (action: any) => {
+    return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;
       const authToken = getCookie("token");
 
       if (type === "WS_CONNECTION_START") {
         // объект класса WebSocket
-        socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(`${wsUrl}/${payload}`);
       }
       if (type === "WS_CONNECTION_START_AUTH") {
         // объект класса WebSocket
         socket = new WebSocket(`${wsUrl}?token=${authToken}`);
       }
-      if (socket && type === "WS_CONNECTION_CLOSE") {
+      if (socket && type === "WS_CONNECTION_CLOSED") {
         // Закрываем соединение
         socket.close();
       }

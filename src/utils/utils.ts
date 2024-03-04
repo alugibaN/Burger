@@ -1,10 +1,10 @@
 import { store } from "..";
 import { TApiActions, TIngrActions } from "../services/API/action";
-import { TInitialActivMenu } from "../services/ActivMenu/reducer";
-import { TAddIngrActions } from "../services/AddIngredient/action";
-import { TModalActions } from "../services/Modal/action";
+import { TInitialActivMenu } from "../services/activMenu/reducer";
+import { TAddIngrActions } from "../services/addIngredient/action";
+import { TModalActions } from "../services/modal/action";
 import { TWSActions } from "../services/webSocket/action";
-import { getCookie } from "./cookie";
+import { getCookie } from "./cookie.jsx";
 
 
 const BASE_URL = 'https://norma.nomoreparties.space/api/'

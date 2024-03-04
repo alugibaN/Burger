@@ -12,6 +12,7 @@ export const COUNTER_INGREDIENT: "COUNTER_INGREDIENT" = "COUNTER_INGREDIENT";
 
 export interface IOrder { 
   name: string; 
+  success?:boolean;
   order: { 
     number: number; 
   }; 
@@ -54,9 +55,6 @@ type TMoveIngredient = {
 type TPostBurger = { 
   readonly type: typeof POST_BURGER; 
   order: IOrder; 
-  bun: object[]; 
-  burgerIngredients: object[]; 
-  flag: boolean; 
 }
 
 export type TAddIngrActions =

@@ -1,33 +1,24 @@
 import React, { useEffect, forwardRef, useState } from "react";
 import ReactDOM from "react-dom";
-import ModalOverlay from "./ModalOverlay";
+import ModalOverlay from "./modalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import sty from "./ModalOverlay.module.css";
+import sty from "./modalOverlay.module.css";
 import { useLocation } from "react-router-dom";
-import { useSelector } from '../../../utils/hooks';
+import { useSelector } from "../../../utils/hooks/useDispatch";
 
 interface IMovieProps {
   children: React.ReactNode;
   closeModal: () => void;
+  background?:boolean;
 }
 
 const domModal: HTMLElement | null = document.getElementById("modal");
 const Modal: React.ForwardRefRenderFunction<HTMLDivElement, IMovieProps> = (
-  { children, closeModal },
+  { children, closeModal, background },
   ref
 ) => {
-  const __cpLocation = useLocation();
-  const [style, setStyle] = useState(false);
-  const { openModalOrder } = useSelector((state) => state.modal);
-
-  useEffect((): void => {
-    if (__cpLocation.state) {
-      setStyle(true);
-    }
-  });
-
   useEffect(() => {
-    const handleEscClose = (e:KeyboardEvent) => {
+    const handleEscClose = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeModal();
       }
@@ -38,17 +29,20 @@ const Modal: React.ForwardRefRenderFunction<HTMLDivElement, IMovieProps> = (
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [closeModal]);
-  
-  if(domModal) {
+  if (domModal) {
     return ReactDOM.createPortal(
       <div ref={ref}>
         <ModalOverlay closeModal={closeModal}>
           <div
-            className={style || openModalOrder ? `${sty.container}` : `${sty.wrapp}`}
+            className={!background ? `${sty.container}` : `${sty.wrapp}`}
             onClick={(e) => e.stopPropagation()}
           >
-            {style || openModalOrder ? (
-              <button type="button" className={sty.popup__close} onClick={closeModal}>
+            {background ? (
+              <button
+                type="button"
+                className={sty.popup__close}
+                onClick={closeModal}
+              >
                 <CloseIcon type="primary" />
               </button>
             ) : null}

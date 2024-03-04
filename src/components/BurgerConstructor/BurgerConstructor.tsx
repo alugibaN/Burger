@@ -1,29 +1,28 @@
 import React, { useCallback } from "react";
-import sty from './BurgerConstructor.module.css';
+import sty from './burgerConstructor.module.css';
 // import sty from './'
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from '../../utils/hooks';
-// import update from 'immutability-helper'
-// import { postOrder } from "../../services/API/action";
+import { useSelector, useDispatch } from '../../utils/hooks/useDispatch';
 import { useDrop } from "react-dnd";
-import { ConstructorItem } from "../ConstructorItem/ConstructorItem";
-import { OPEN_MODAL_ORDER } from "../../services/Modal/action";
-import { addIngredient } from "../../services/AddIngredient/action";
+import { ConstructorItem } from "../constructorItem/constructorItem";
+import { addIngredient } from "../../services/addIngredient/action";
 import {
   ADD_BUN,
   MOVE_INGREDIENT,
-} from "../../services/AddIngredient/action";
-import { getCookie } from "../../utils/cookie";
+} from "../../services/addIngredient/action";
+import { getCookie } from "../../utils/cookie.jsx";
 import { useNavigate } from "react-router-dom";
 import { IItem } from "../../utils/utils";
+import { postOrder } from "../../services/API/action";
+import { OPEN_MODAL_ORDER } from "../../services/modal/action";
 
 const BurgerConstructor: React.FC = () => {
   type exponentCallback = (dragIndex:number, hoverIndex:number) => void;
-  const { burgerIngredients, bun, totalSum, flag } =
+  const { burgerIngredients, ingredients, bun, totalSum, flag } =
     useSelector((state) => state.ingr); 
   const token = getCookie('token')
   const dispatch = useDispatch();
@@ -66,7 +65,7 @@ const BurgerConstructor: React.FC = () => {
     e.preventDefault();
     if((bun && burgerIngredients.length !== 0 && token)){
     onOpen();
-    // dispatch(postOrder({ingredients:ingredients}));
+    dispatch(postOrder({ingredients:ingredients}));
     } else{
       navigate('/login')
     }
@@ -77,7 +76,7 @@ const BurgerConstructor: React.FC = () => {
       <div className={`${sty.constructor}`} ref={drop}>
       <div className={sty.topBulka}>
     {flag ? (
-      bun.map((item:IItem) => {
+      bun.map((item) => {
         return item.price?(
           <ConstructorElement
             key={item._id}
@@ -98,7 +97,7 @@ const BurgerConstructor: React.FC = () => {
     {!flag ? (
       <li className={sty.filling}>Начинка</li>
     ) : (
-      burgerIngredients.map((item:IItem, index: number) => {
+      burgerIngredients.map((item, index) => {
         return (
           <ConstructorItem
             key={item.uniqueId}
@@ -116,7 +115,7 @@ const BurgerConstructor: React.FC = () => {
         Булка
       </div>
     ) : (
-      bun.map((item:IItem) => {
+      bun.map((item) => {
         return item.price?(
           <ConstructorElement
             key={item._id}

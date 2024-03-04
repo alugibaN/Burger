@@ -3,10 +3,10 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import sty from "./MenuItem.module.css";
-import { useSelector, useDispatch } from "../../utils/hooks";
+import sty from "./menuItem.module.css";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
 import { useDrag } from "react-dnd";
-import { BURGER_ID, SUM_PRICES } from "../../services/AddIngredient/action";
+import { BURGER_ID, SUM_PRICES } from "../../services/addIngredient/action";
 // import { OPEN_MODAL_INGREDIENT } from "../../services/Modal/action";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IItem } from "../../utils/utils";
@@ -32,7 +32,7 @@ const MenuItem: React.FC<ImoveProps> = ({ type, item }) => {
     navigate(`/ingredient/${item._id}`, { state: { modal: true } });
   }, []);
 
-  const count = ingredients.filter((el: string) => el === item._id);
+  const count = ingredients.filter((el) => el === item._id);
   const counLength = count.length;
 
   useEffect((): void => {

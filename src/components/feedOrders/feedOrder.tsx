@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
 import sty from "./feedOrder.module.css";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "../../utils/hooks";
-import { IItem } from "../../utils/utils";
-import { IIngr, Ipayload } from "../../services/webSocket/action";
+import { useSelector } from "../../utils/hooks/useDispatch";
+import { IIngr } from "../../services/webSocket/action";
 
 interface IMovieProps {
   item: IIngr
@@ -18,11 +16,11 @@ const FeedOrder: React.FC<IMovieProps> = ({ item, url }) => {
   const location = useLocation();
   const { data } = useSelector((state) => state.card);
 
-  const ingredients = data.filter((ingredient: IItem) =>
+  const ingredients = data.filter((ingredient) =>
   item.ingredients ? item.ingredients.includes(ingredient._id ? ingredient._id : "") : undefined
   );
   const price = ingredients.reduce(
-    (ac: number, el: IItem) => (el.price ? ac + el.price : 0),
+    (ac, el) => (el.price ? ac + el.price : 0),
     0
   );
 
@@ -51,7 +49,7 @@ const FeedOrder: React.FC<IMovieProps> = ({ item, url }) => {
         </h3>
         <div className={sty.order__container}>
           <div className={sty.order__container_img}>
-            {ingredients.slice(0, 5).map((el: IItem, index: number) => (
+            {ingredients.slice(0, 5).map((el, index) => (
               <img
                 key={index}
                 className={sty.order__imgi}

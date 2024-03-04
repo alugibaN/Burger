@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Navigate, Route, useLocation } from 'react-router-dom';
-import { getCookie } from '../../utils/cookie';
+import { getCookie } from '../../utils/cookie.jsx';
 
 interface ProtectedRouteProps {
   component: ReactElement;

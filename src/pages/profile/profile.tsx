@@ -1,8 +1,8 @@
 import React from "react";
 import sty from "./profile.module.css";
 import { NavLink, Navigate, Outlet } from "react-router-dom";
-import { useSelector, useDispatch } from "../../utils/hooks";
-import { deleteCookie, getCookie } from "../../utils/cookie";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
+import { deleteCookie, getCookie } from "../../utils/cookie.jsx";
 import { postLogOut } from "../../services/API/action";
 
 const Profile:React.FC = () => {

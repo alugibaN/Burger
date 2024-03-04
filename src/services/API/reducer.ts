@@ -1,4 +1,4 @@
-import { setCookie } from "../../utils/cookie";
+import { setCookie } from "../../utils/cookie.jsx";
 import { IItem } from "../../utils/utils";
 import {
   REGISTRATION,

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import Modal from '../../components/modal/ModalOverlay/Modal'
+import Modal from '../../components/modal/modalOverlay/modal'
 import FeedNumberModal from '../../components/modal/feedNumberModal/feedNumberModal'
 import { useNavigate } from 'react-router-dom'
 

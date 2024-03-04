@@ -2,13 +2,14 @@ import sty from "./feed.module.css";
 import FeedOrder from "../../components/feedOrders/feedOrder";
 import React from "react";
 // import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "../../utils/hooks";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
 import { useEffect, useMemo } from "react";
 import { WS_CONNECTION_START } from "../../services/webSocket/action";
+import { useLocation } from "react-router-dom";
 
 const FeedPage: React.FC = () => {
   const { messages } = useSelector((state) => state.ws);
-
+const location = useLocation()
   type TItem = {
     ingredients: string;
     _id: string;
@@ -23,17 +24,11 @@ const FeedPage: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  useEffect((): void => {
-    dispatch({
-      type: WS_CONNECTION_START,
-    });
-  }, [dispatch]);
-
   const lastReadyOrders = useMemo(() => {
     if (messages.success && messages.orders) {
       return messages.orders
-        .filter((order: TOrder) => order.status === "done")
-        .map((order: TOrder) => order.number)
+        .filter((order) => order.status === "done")
+        .map((order) => order.number)
         .slice(-10);
     }
   }, [messages]);
@@ -41,8 +36,8 @@ const FeedPage: React.FC = () => {
   const lastProgressOrders = useMemo(() => {
     if (messages.success && messages.orders) {
       return messages.orders
-        .filter((order: TOrder) => order.status === "pending")
-        .map((order: TOrder) => order.number)
+        .filter((order) => order.status === "pending")
+        .map((order) => order.number)
         .slice(-10);
     }
   }, [messages]);

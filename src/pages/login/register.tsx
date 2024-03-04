@@ -8,7 +8,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "../../utils/hooks";
+import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
 import { CLEAN, postRegistration } from "../../services/API/action";
 
 const Register:React.FC = () => {

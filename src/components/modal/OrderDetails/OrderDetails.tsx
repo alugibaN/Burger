@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from '../../../utils/hooks';
+import { useSelector, useDispatch } from '../../../utils/hooks/useDispatch';
 import React from 'react'
-import sty from './Order.module.css'
+import sty from './order.module.css'
 
 
 
@@ -12,7 +12,7 @@ const OrderDetails:React.FC = () => {
   return (
     <>
       <h2 className={`${sty.popup__title} text text_type_digits-medium`}>
-        {order.name !== undefined ? order.order.number: 'Загрузка'}
+        {order.name ? order.order.number: 'Загрузка'}
       </h2>
       <p className={`text text_type_main-medium mb-15`}>Индификатор заказа</p>
       <svg width="107" height="102" viewBox="0 0 107 102" fill="none" xmlns="http://www.w3.org/2000/svg">

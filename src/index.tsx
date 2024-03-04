@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App/App'
+import App from './components/app/app'
 import { rootReducer } from './services/store'
 import { createStore, applyMiddleware, Action, ActionCreator } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter } from 'react-router-dom';
-import { socketMiddleware } from './services/Middleware/socketMiddleware';
+import { socketMiddleware } from './services/middleware/socketMiddleware';
 
 
 

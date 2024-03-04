@@ -6,25 +6,47 @@ import Register from "../../pages/login/register";
 import ForgotPassword from "../../pages/login/forgot-password";
 import ResetPassword from "../../pages/login/reset-password";
 import Profile from "../../pages/profile/profile";
-import { OnlyAuth } from "../protectedRoute/ProtectedRoute";
+import { OnlyAuth } from "../protectedRoute/protectedRoute";
 import ModalIngredient from "../../pages/home/ingredient";
 import FeedPage from "../../pages/feed/feed";
-import AppHeader from "../AppHeader/AppHeader";
+import AppHeader from "../appHeader/appHeader";
 import IngredientPage from "../../pages/home/ingredientPage";
 import ProfileForm from "../../pages/profile/profileForm";
 import ProfileOrders from "../../pages/profile/profileOrders";
-import ProfileOrdersModal from "../../pages/profile/ProfileOrdersModal";
-import FeedModal from "../../pages/feed/FeedModal";
-import FeedNumberPage from "../../pages/feed/FeedNumberPage";
-import ProfileOrdersPage from "../../pages/profile/ProfileOrdersPage";
+import ProfileOrdersModal from "../../pages/profile/profileOrdersModal";
+import FeedModal from "../../pages/feed/feedModal";
+import FeedNumberPage from "../../pages/feed/feedNumberPage";
+import ProfileOrdersPage from "../../pages/profile/profileOrdersPage";
 import { useEffect } from "react";
 import { getData } from "../../services/API/action";
-import { useDispatch } from "../../utils/hooks";
+import { useDispatch } from "../../utils/hooks/useDispatch";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START, WS_CONNECTION_START_AUTH } from "../../services/webSocket/action";
 
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
+console.log()
+  useEffect((): void => {
+  if(location.pathname ==='/feed'){
+    dispatch({
+      type: WS_CONNECTION_START,
+      payload:'all'
+    }); 
+  } 
+  else if (location.pathname ==='/profile/orders'){
+    dispatch({
+      type: WS_CONNECTION_START_AUTH,
+    });
+  }
+ else {
+    dispatch({
+      type: WS_CONNECTION_CLOSED,
+    })
+  }
+
+  }, [location]);
+
 
   useEffect(() => {
     dispatch(getData());

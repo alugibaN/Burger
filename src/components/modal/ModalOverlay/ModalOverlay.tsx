@@ -1,4 +1,4 @@
-import sty from './ModalOverlay.module.css'
+import sty from './modalOverlay.module.css'
 import React from 'react';
 
 interface IMovieProps {

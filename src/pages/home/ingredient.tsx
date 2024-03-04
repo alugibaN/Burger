@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import IngredientsDetails from "../../components/modal/IngredientDetails/IngredientDetails";
-import Modal from "../../components/modal/ModalOverlay/Modal";
+import IngredientsDetails from "../../components/modal/ingredientDetails/ingredientDetails";
+import Modal from "../../components/modal/modalOverlay/modal";
 import HomePages from "./home";
 
 

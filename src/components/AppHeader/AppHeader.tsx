@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import sty from "./appHeader.module.css";
 import {
   Logo,
@@ -10,7 +10,7 @@ import {
 import {
   WS_CONNECTION_CLOSED,
 } from "../../services/webSocket/action";
-import { useDispatch } from "../../utils/hooks";
+import { useDispatch } from "../../utils/hooks/useDispatch";
 
 const AppHeader: React.FC = () => {
   const location = useLocation();
@@ -30,9 +30,9 @@ const AppHeader: React.FC = () => {
     <>
       <header className={`${sty.header} mb-5`}>
         <div className={sty.wr}>
-          <a href="/" className={sty.link}>
+          <Link to='/'>
             <Logo />
-          </a>
+            </Link>
         </div>
         <nav className={sty.nav}>
           <ul className={sty.spisok}>

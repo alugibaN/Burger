@@ -41,44 +41,35 @@ export type Ipayload = {
   totalToday?: number | undefined;
   total?: number | undefined;
   success?: boolean | undefined;
-}
+};
 
-
-
-  
-  // orders?: {
-  //   ingredients: string;
-  //   _id: string;
-  //   number: number;
-  //   name: string;
-  //   status?:string;
-  //   image_mobile?: string;
-  //   createdAt: string;
-  //   updatedAt?:string
-  // }[];
-  // totalToday?: number;
-  // total?: number;
-  // success?: boolean;
-
-
-
-
-
+// orders?: {
+//   ingredients: string;
+//   _id: string;
+//   number: number;
+//   name: string;
+//   status?:string;
+//   image_mobile?: string;
+//   createdAt: string;
+//   updatedAt?:string
+// }[];
+// totalToday?: number;
+// total?: number;
+// success?: boolean;
 
 type TWsConnectionStart = {
   readonly type: typeof WS_CONNECTION_START;
 };
 type TWsConnectionSuccess = {
   readonly type: typeof WS_CONNECTION_SUCCESS;
-  readonly error: undefined;
-  readonly wsConnected: boolean;
+  payload: object;
+
 };
 type TWsConnectionError = {
   readonly type: typeof WS_CONNECTION_ERROR;
   // readonly error: {
   payload: object;
   // };
-  readonly wsConnected: boolean;
 };
 type TWsConnectionClosed = {
   readonly type: typeof WS_CONNECTION_CLOSED;
@@ -89,7 +80,6 @@ type TWsConnectionStartAuth = {
 };
 type TWsGetMessage = {
   readonly type: typeof WS_GET_MESSAGE;
-  readonly error: undefined;
   payload: Ipayload;
 };
 
@@ -105,7 +95,7 @@ export type TWSActions =
   | TWsConnectionClosed
   | TWsGetMessage
   | TWGetOrder
-  | TWsConnectionStartAuth
+  | TWsConnectionStartAuth;
 
 // получение заказа
 export const getOrder = (order: string | undefined) => {

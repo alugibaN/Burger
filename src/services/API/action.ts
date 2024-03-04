@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { getCookie, setCookie } from "../../utils/cookie";
+import { getCookie, setCookie } from "../../utils/cookie.jsx";
 import {
   IItem,
   authHead,
@@ -8,6 +8,7 @@ import {
   postHeadLogin,
   request,
 } from "../../utils/utils";
+import { AppDispatch, useDispatch } from "../../utils/hooks/useDispatch";
 
 export const GET_DATA: "GET_DATA" = "GET_DATA";
 export const GET_DATA_SUCCESS: "GET_DATA_SUCCESS" = "GET_DATA_SUCCESS";
@@ -27,13 +28,18 @@ export const REFRESH_TOKEN = "REFRESH_TOKEN";
 const refreshTok = getCookie("refreshToken");
 const token = getCookie("token");
 
-
 export type TIngrActions = {
   readonly type: typeof GET_DATA_SUCCESS;
-  readonly data: {
+   data: {
     data:IItem[];
     success:boolean
   };
+  }
+  interface IEmail {
+    readonly user:{
+      readonly  email:string
+      readonly name:string
+    }
   }
 
 type TRegistration = {
@@ -65,25 +71,14 @@ type TLogin = {
     success:boolean
     user: object[]
   };
-  // readonly  authToken: token;
 };
 type TLogout = {
   readonly type: typeof LOGOUT;
-  readonly logout: object[];
-  // readonly  accessToken: ;
   readonly user: object[];
 };
 type TGetProfile = {
   readonly type: typeof GET_PROFILE;
-  readonly user: {
-    readonly user:{
-      readonly  email:string
-      readonly name:string
-    }
-  };
-  
-  readonly email: string;
-  readonly name: string;
+  readonly user:IEmail
 };
 type TPatchProfile = {
   readonly type: typeof PATCH_PROFILE;
@@ -95,7 +90,6 @@ type TPatchProfile = {
     }
   }
 };
-  // readonly user: object[];
 
 
 export type TApiActions = 
@@ -110,9 +104,9 @@ TPatchProfile
 
 // получение ингредиентов
 export const getData = () => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request(`ingredients`)
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: GET_DATA_SUCCESS,
           data: data,
@@ -124,10 +118,10 @@ export const getData = () => {
 type TFun = ReturnType<typeof getData>;
 
 //отправка заказа
-export const postO = (form: object) => {
-  return function (dispatch: Dispatch) {
+export const postOrder = (form: object) => {
+  return function (dispatch:AppDispatch) {
     request(`orders`, authHead(form, "POST"))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: POST_BURGER,
           order: data,
@@ -139,9 +133,9 @@ export const postO = (form: object) => {
 
 // регистрация
 export const postRegistration = (form: object) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("auth/register", postHeadLogin(form))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: REGISTRATION,
           user: data,
@@ -153,9 +147,9 @@ export const postRegistration = (form: object) => {
 
 //востоновление пароля
 export const postForgotPassword = (form: object) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("password-reset", postHeadLogin(form))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: FORGOT_PASSWORD,
           user: data,
@@ -167,7 +161,7 @@ export const postForgotPassword = (form: object) => {
 
 // изменение пароля
 export const postResetPassword = (form: object) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("password-reset/reset", {
       method: "POST",
       mode: "cors",
@@ -180,7 +174,7 @@ export const postResetPassword = (form: object) => {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(form),
     })
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: RESET_PASSWORD,
           user: data,
@@ -192,9 +186,9 @@ export const postResetPassword = (form: object) => {
 
 // авторизация
 export const postLogin = (form: object) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("auth/login", postHeadLogin(form))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: LOGIN,
           user: data,
@@ -206,9 +200,9 @@ export const postLogin = (form: object) => {
 
 // выход из личного кабинете
 export const postLogOut = (token: object) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("auth/logout", postHeadLogin(token))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: LOGOUT,
           user: data,
@@ -220,23 +214,24 @@ export const postLogOut = (token: object) => {
 
 // получение данных пользователя
 export const getProfi = () => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request(`auth/user`, authHead())
-      .then((data) => {
-        dispatch({
-          type: GET_PROFILE,
-          user: data,
-        });
+      .then((data:any) => {
+          dispatch({
+            type: GET_PROFILE,
+            user: data,
+          });
       })
       .catch(console.error);
   };
 };
 
+
 // изменение данных пользователя
 export const patchProf = (form: object, method: string) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch:AppDispatch) {
     request("auth/user", authHead(form, method))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: PATCH_PROFILE,
           user: data,
@@ -248,9 +243,9 @@ export const patchProf = (form: object, method: string) => {
 
 // обновление tokena
 export const postToken = (token: object, method: string) => {
-  return function (dispatch: Dispatch) {
+  return function (dispatch: AppDispatch) {
     request("auth/token", authHead(token, method))
-      .then((data) => {
+      .then((data:any) => {
         dispatch({
           type: LOGIN,
           user: data,
@@ -261,7 +256,22 @@ export const postToken = (token: object, method: string) => {
 };
 
 
-
+// export const postOrder = (form:object) => {
+//   return async (dispatch:AppDispatch) => {
+//     try {
+//       const res = await request(`orders`, authHead(form, "POST")).then(
+//         (dataany) => {
+//           dispatch({
+//             type: POST_BURGER,
+//             order: data,
+//           });
+//         }
+//       );
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   };
+// };
 
 
 
