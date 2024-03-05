@@ -31,31 +31,12 @@ export interface IIngr {
   updatedAt?: string | undefined;
 }
 
-// interface OrderSummary {
-//   totalToday?: number | undefined;
-//   total?: number | undefined;
-//   success?: boolean | undefined;
-// }
 export type Ipayload = {
   orders?: IIngr[] | undefined;
   totalToday?: number | undefined;
   total?: number | undefined;
   success?: boolean | undefined;
 };
-
-// orders?: {
-//   ingredients: string;
-//   _id: string;
-//   number: number;
-//   name: string;
-//   status?:string;
-//   image_mobile?: string;
-//   createdAt: string;
-//   updatedAt?:string
-// }[];
-// totalToday?: number;
-// total?: number;
-// success?: boolean;
 
 type TWsConnectionStart = {
   readonly type: typeof WS_CONNECTION_START;
@@ -75,9 +56,6 @@ type TWsConnectionClosed = {
   readonly type: typeof WS_CONNECTION_CLOSED;
 };
 
-type TWsConnectionStartAuth = {
-  readonly type: typeof WS_CONNECTION_START_AUTH;
-};
 type TWsGetMessage = {
   readonly type: typeof WS_GET_MESSAGE;
   payload: Ipayload;
@@ -95,7 +73,6 @@ export type TWSActions =
   | TWsConnectionClosed
   | TWsGetMessage
   | TWGetOrder
-  | TWsConnectionStartAuth;
 
 // получение заказа
 export const getOrder = (order: string | undefined) => {

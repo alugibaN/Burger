@@ -7,17 +7,6 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/webSoc
 const FeedNumberPage:React.FC = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-    });
-    return () => {
-      dispatch({
-        type: WS_CONNECTION_CLOSED,
-      });
-    };
-  }, [dispatch]);
-
   return (
     <>
       <FeedNumberModal />

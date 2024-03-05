@@ -73,11 +73,6 @@ export const wsReducer = (
         ...state,
         messages: action.messages,
       };
-      case WS_CONNECTION_START_AUTH:
-        return {
-          ...state,
-          wsConnected:true
-        }
     default:
       return state;
   }

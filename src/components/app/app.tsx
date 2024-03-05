@@ -1,5 +1,5 @@
 // import { Route, Routes, Switch } from "react-router-dom";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useParams } from "react-router-dom";
 import HomePages from "../../pages/home/home";
 import Login from "../../pages/login/login";
 import Register from "../../pages/login/register";
@@ -20,22 +20,28 @@ import ProfileOrdersPage from "../../pages/profile/profileOrdersPage";
 import { useEffect } from "react";
 import { getData } from "../../services/API/action";
 import { useDispatch } from "../../utils/hooks/useDispatch";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START, WS_CONNECTION_START_AUTH } from "../../services/webSocket/action";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/webSocket/action";
+import { getCookie } from "../../utils/cookie";
 
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
+  const authToken = getCookie("token");
+  const splitURL = location.pathname.split("/")[1]
+// console.log(`${location.pathname}/orders`)
+
   useEffect((): void => {
-  if(location.pathname ==='/feed'){
+  if(splitURL ==='feed' ){
     dispatch({
       type: WS_CONNECTION_START,
-      payload:'all'
+      payload:'/all'
     }); 
   } 
-  else if (location.pathname ==='/profile/orders'){
+  else if (`${splitURL}/orders` ==='profile/orders' ){
     dispatch({
-      type: WS_CONNECTION_START_AUTH,
+      type: WS_CONNECTION_START,
+      payload:`?token=${authToken}`
     });
   }
  else {

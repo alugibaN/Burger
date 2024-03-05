@@ -3,12 +3,17 @@ import FeedNumberModal from "../../components/modal/feedNumberModal/feedNumberMo
 import { useDispatch } from "../../utils/hooks/useDispatch";
 import { useParams } from "react-router-dom";
 import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
   getOrder,
 } from "../../services/webSocket/action";
+import { getCookie } from "../../utils/cookie";
 
 const ProfileOrdersPage:React.FC = () => {
   const { number } = useParams();
   const dispatch = useDispatch();
+  const authToken = getCookie("token");
+
 
   useEffect(() => {
     dispatch(getOrder(number));

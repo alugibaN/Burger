@@ -3,16 +3,19 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "../../utils/hooks/useDispatch";
 import { IIngr } from "../../services/webSocket/action";
 
 interface IMovieProps {
   item: IIngr
   url: string;
+  params?:string
 }
 
-const FeedOrder: React.FC<IMovieProps> = ({ item, url }) => {
+
+
+const FeedOrder: React.FC<IMovieProps> = ({ item, url, params }) => {
   const location = useLocation();
   const { data } = useSelector((state) => state.card);
 
@@ -27,7 +30,7 @@ const FeedOrder: React.FC<IMovieProps> = ({ item, url }) => {
   return (
     <Link
       to={`${url}/${item._id}`}
-      state={{ background: location }}
+      state={{ background: location, params: params}}
       className={`${sty.link} text text_type_digits-default`}
     >
       <li className={`${sty.order} pr-6 pb-6 pt-6 pl-6 mt-2`}>

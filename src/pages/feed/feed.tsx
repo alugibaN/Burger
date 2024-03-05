@@ -1,27 +1,16 @@
 import sty from "./feed.module.css";
 import FeedOrder from "../../components/feedOrders/feedOrder";
-import React from "react";
+import React, { useEffect } from "react";
 // import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "../../utils/hooks/useDispatch";
-import { useEffect, useMemo } from "react";
-import { WS_CONNECTION_START } from "../../services/webSocket/action";
-import { useLocation } from "react-router-dom";
+import { useMemo } from "react";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+} from "../../services/webSocket/action";
 
 const FeedPage: React.FC = () => {
   const { messages } = useSelector((state) => state.ws);
-const location = useLocation()
-  type TItem = {
-    ingredients: string;
-    _id: string;
-    number: number;
-    createdAt: number;
-    name: string;
-  };
-  type TOrder = {
-    status?: string;
-    number?: number;
-  };
-
   const dispatch = useDispatch();
 
   const lastReadyOrders = useMemo(() => {
@@ -50,7 +39,12 @@ const location = useLocation()
           <ul className={`${sty.menu} custom-scroll`}>
             {messages.success && messages.orders !== undefined
               ? messages.orders.map((item) => (
-                  <FeedOrder key={item._id} url={"/feed"} item={item} />
+                  <FeedOrder
+                    key={item._id}
+                    url={"/feed"}
+                    item={item}
+                    params={"feed"}
+                  />
                 ))
               : null}
           </ul>
