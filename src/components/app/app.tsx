@@ -26,7 +26,6 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-console.log()
   useEffect((): void => {
   if(location.pathname ==='/feed'){
     dispatch({

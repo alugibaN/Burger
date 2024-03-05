@@ -142,7 +142,6 @@ const BurgerConstructor: React.FC = () => {
     htmlType="button"
     type="primary"
     size="large"
-    // disabled={bun && ingredients.lengts < 1}
     disabled={!bun || burgerIngredients.length < 1}
     onClick={submitOrder}
   >
