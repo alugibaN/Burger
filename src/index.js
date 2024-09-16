@@ -16,7 +16,7 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsUrl))))
-
+console.log('hhh')
  root.render(
 	<Provider store={store}>
 		<BrowserRouter>
